@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link id="css" rel="stylesheet"/>
+    <script id="js" defer></script>
+    <script>
+        document.getElementById('css').href = './demo/css/demo.css?' + Date.now();
+        document.getElementById('js').src = './demo/js/demo.js?' + Date.now();
+    </script>
+    <title>Scanner Demo</title>
+</head>
+<body>
+    <h1>Scanner Demo</h1>
+    <section class="scanner-demo">
+        <h2>Scanner Demo</h2>
+        <button id="scannerBtn">Scan</button>
+    </section>
+    <section class="qrscanner-demo">
+        <h2>QRScanner Demo</h2>
+        <button id="qrScannerBtn">Scan QR code</button><br>
+        <input id="qrscannerOutput" name="qrscannerOutput" placeholder="Output">
+    </section>
+</body>
+</html>
