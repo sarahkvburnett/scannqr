@@ -1,7 +1,9 @@
+@import "../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
 .scanner,
 .qrScanner {
   margin: 0;
-  background: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   z-index: -1;
   display: flex;
@@ -39,6 +41,10 @@
     margin: 1rem;
     transition: opacity 100ms ease-in;
     z-index: 1002;
+  }
+
+  .message {
+
   }
 
 

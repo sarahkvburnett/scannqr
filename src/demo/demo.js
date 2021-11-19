@@ -5,15 +5,20 @@ const scannerBtn = document.querySelector('#scannerBtn');
 const qrScannerBtn = document.querySelector('#qrScannerBtn');
 
 const scanner = new Scanner({
-    container: '.qrscanner-demo',
-    position: qrScannerBtn.getBoundingClientRect(),
-    scanImage: () => console.log("Scanning...")
+    parentElement: document.querySelector('.scanner-demo'),
+    position: scannerBtn.getBoundingClientRect(),
+    performScan: function(){
+        this.result = {"msg": 'It works!'};
+        this.setState('SUCCESS');
+    },
+    displayVideo: false
 });
 
 const qrScanner = new QRScanner({
-    container: '.scanner-demo',
-    position: scannerBtn.getBoundingClientRect(),
-    displaySuccess: result => document.querySelector('#qrscannerOutput').value = result.data
+    parentElement: document.querySelector('.qrscanner-demo'),
+    position: qrScannerBtn.getBoundingClientRect(),
+    outputElement: document.querySelector('#qrscannerOutput'),
+    submitButton: document.querySelector('#qrScannerBtn')
 });
 
 scannerBtn.addEventListener('click', () => scanner.start());

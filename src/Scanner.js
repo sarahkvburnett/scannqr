@@ -1,131 +1,133 @@
+import Message from "./classes/Message";
+import Scan from "./classes/Scan";
+import Stream from "./classes/Stream";
+import {AVAILABLE, CANCEL, ERROR, REMOVED, SCANNING, STOPPING} from "./utils/states";
+import Options from "./classes/Options";
+
 export default class Scanner {
 
-    isScanning = false;
+    options = new Options();
 
     constructor(options){
         if (!options) throw new Error('Need to provide options object to create scanner');
-        if (!options.hasOwnProperty('container')) throw new Error('Need container to append created scanner');
+        if (!options.hasOwnProperty('parentElement')) throw new Error('Need parent element to append created scanner');
         if (!options.hasOwnProperty('position')) throw new Error('Need starting position for scanner');
+        if (!options.hasOwnProperty('performScan')) throw new Error('Need method for performing scan');
+        this.setOptions(options);
+    }
 
-        this.container = options['container'];
-        this.position = options['position'];
+    setState(state){
+        this.state = state;
+    }
 
-        this.backBtnHTML = options['backBtnHTML'] ?? 'Go Back';
-        this.iconHTML = options['iconHTML'] ?? '';
-        this.videoFacingMode = options['videoFacingMode'] ?? 'environment';
-        this.classname = options['classname'] ?? 'scanner';
-        this.scanFrequency = options['scanFrequency'] ?? 20;
+    isState(state){
+        return this.state === state;
+    }
 
-        if (options.hasOwnProperty('scanImage')) this.scanImage = options['scanImage'];
-        if (options.hasOwnProperty('displaySuccess')) this.displaySuccess = options['displaySuccess'];
-        if (options.hasOwnProperty('displayError')) this.displayError = options['displayError'];
+    setOptions(options){
+        for (let key in options){
+            this.options[key] = options[key];
+        }
+    }
+
+    getOption(option){
+        return this.options[option];
     }
 
     //Create scanner over calling element with video, canvas, back button, bg icon
     create(){
         this.scanner = document.createElement('div');
-        const {top, left, width, height} = this.position;
-        this.scanner.classList.add(this.classname);
+        const {top, left, width, height} = this.getOption('position');
+        this.scanner.classList.add(this.getOption('classname'));
         this.scanner.style.position = 'fixed';
         this.scanner.style.top = top + 'px';
         this.scanner.style.left = left + 'px';
         this.scanner.style.width = width + 'px';
         this.scanner.style.height = height + 'px';
 
-        this.canvas = document.createElement('canvas');
-        this.ctx = this.canvas.getContext("2d");
-
-        this.video = document.createElement('video');
-        this.video.autoplay = true;
-        this.video.muted = true;
-        this.video.playsInline = true;
-
         this.icon = document.createElement('p');
         this.icon.className = 'icon';
         this.icon.style.fontSize = '2rem';
-        this.icon.innerHTML = this.iconHTML;
+        this.icon.innerHTML = this.getOption('iconHTML');
 
         this.backBtn = document.createElement('button');
         this.backBtn.type = 'button';
         this.backBtn.id = 'backBtn';
-        this.backBtn.innerHTML = this.backBtnHTML;
-        this.backBtn.addEventListener('click', async () => this.stop());
+        this.backBtn.innerHTML = this.getOption('backBtnHTML');
+        this.backBtn.addEventListener('click', async () => this.cancel());
 
-        this.scanner.appendChild(this.canvas);
-        this.scanner.appendChild(this.video);
+        this.message = new Message(this);
+        this.stream = new Stream(this);
+        this.scan = new Scan(this);
+
+        this.scanner.appendChild(this.stream.canvas);
+        this.scanner.appendChild(this.stream.video);
         this.scanner.appendChild(this.icon);
         this.scanner.appendChild(this.backBtn);
 
-        document.querySelector(this.container).appendChild(this.scanner);
+        const parentElement = this.getOption('parentElement');
+        parentElement.appendChild(this.scanner);
+
+        this.setState(AVAILABLE)
     }
 
     //Start scanner
     async start(){
-        if (!this.scanner) this.create();
+        if (!this.scanner || this.isState(REMOVED)) this.create();
         try {
             await this.animateIn();
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: this.videoFacingMode } });
-            this.video.srcObject = await stream;
-            this.video.play();
-            this.isScanning = true;
-            await this.requestScan();
-            this.startTime = Date.now();
+            await this.stream.start();
+            this.setState(SCANNING);
+            await this.requestFrameScan();
         } catch (e) {
-            throw e;
+            await this.error('Unable to start scanning');
         }
     }
 
     //Stop scanner
     async stop(){
-        if (this.isScanning) {
-            this.video.pause();
-            (this.video.srcObject.getTracks()).forEach(track => track.stop());
-            this.video.srcObject = null;
-            this.isScanning = false;
+        if (this.isScanning()) {
+            this.setState(STOPPING);
+            await this.stream.stop();
         }
         await this.animateOut();
         this.scanner.remove();
+        this.setState(REMOVED);
     }
 
-    //Perform scan
-    async scan() {
-        if (!this.isScanning) return;
-        if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
-            this.drawCanvas();
-            await this.scanImage();
+    //Recursively scan camera input
+    async requestFrameScan(){
+        return await this.requestAnimation(this.scanFrame.bind(this), 20);
+    }
+
+    //Single image scan
+    async scanFrame() {
+        if (!this.isScanning()) return;
+        if (this.stream.ready()) {
+            const frame = this.scan.prepare();
+            await this.scan.perform(frame);
         }
-        await this.requestScan();
+        await this.requestFrameScan();
     }
 
-    //Perform image scan
-    async scanImage() {
-        //Scan image as required then call displayResult
-        throw new Error('Method must be implemented');
+    //Cancel scanning
+    async cancel(){
+        await this.stop();
+        this.message.update(CANCEL)
     }
 
-    async displaySuccess(result) {
-        //Display successful result of scan
-        throw new Error('Method must be implemented');
+    //Error scanning
+    async error(message){
+        await this.stop();
+        this.message.update(ERROR, message)
     }
 
-    async displayError(result) {
-        //Display unsuccessful result of scan
-        throw new Error('Method must be implemented');
-    }
-
-    //Draw on canvas
-    drawCanvas(){
-        this.canvas.height = this.video.videoHeight;
-        this.canvas.width = this.video.videoWidth;
-        this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
-        if (this.canvas.style.opacity == 0) this.canvas.style.opacity = 1;
+    //State
+    isScanning(){
+        return this.state === SCANNING;
     }
 
     //Animations
-    async requestScan(){
-        return await this.requestAnimation(this.scan.bind(this), this.scanFrequency);
-    }
-
     async animateIn(){
         const duration = '350';
         const animation = () => {
@@ -153,9 +155,10 @@ export default class Scanner {
 
     async animateOut(){
         const duration = '350';
+        const position = this.getOption('position');
         const animation = () => {
             this.backBtn.style.opacity = '0';
-            this.canvas.style.opacity = '0';
+            this.stream.hide();
 
             this.scanner.style.transition = `
                 width ${duration}ms ease-in-out,
@@ -164,10 +167,10 @@ export default class Scanner {
                 top ${duration}ms ease-in-out
             `;
 
-            this.scanner.style.top = this.position.top + 'px';
-            this.scanner.style.left = this.position.left + 'px';
-            this.scanner.style.width = this.position.width + 'px';
-            this.scanner.style.height = this.position.height + 'px';
+            this.scanner.style.top = position.top + 'px';
+            this.scanner.style.left = position.left + 'px';
+            this.scanner.style.width = position.width + 'px';
+            this.scanner.style.height = position.height + 'px';
 
             this.icon.style.fontSize = '2rem';
         };

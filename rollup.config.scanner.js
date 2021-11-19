@@ -26,7 +26,7 @@ const config = [
             },
         ],
         plugins: [
-            strip(),  // removes console.log
+            // strip(),  // removes console.log
             commonjs({
                 include: "node_modules/**",
             }),
