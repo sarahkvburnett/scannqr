@@ -1,6 +1,8 @@
-import {ERROR, FAILED, SUCCESS} from "../utils/states";
+import {CANCELLED, ERROR, FAILED, SUCCESS} from "../utils/states";
 
 export default class Message {
+
+    isCreated = false;
 
     constructor(scanner) {
         this.scanner = scanner;
@@ -12,9 +14,11 @@ export default class Message {
     }
 
     create(){
+        if (this.isCreated) return;
+        this.isCreated = true;
         const element = document.createElement('div');
-        element.className = 'message';
-        this.scanner.append(element);
+        element.className = this.getOption('messageClassname');
+        this.getOption('parentElement').append(element);
         return element;
     }
 
@@ -32,7 +36,7 @@ export default class Message {
     }
 
     hide(){
-        this.message.style.display = 'none';
+        if (this.message) this.message.style.display = 'none';
         this.element.innerHTML = '';
     }
 
@@ -48,6 +52,10 @@ export default class Message {
                 return this.getOption('errorHTML');
             case FAILED:
                 return this.getOption('failedHTML');
+            case CANCELLED:
+                return this.getOption('cancelledHTML');
+            default:
+                return this.getOption('scanningHTML');
         }
     }
 

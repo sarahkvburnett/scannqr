@@ -1,7 +1,7 @@
 import Message from "./classes/Message";
 import Scan from "./classes/Scan";
 import Stream from "./classes/Stream";
-import {AVAILABLE, CANCEL, ERROR, REMOVED, SCANNING, STOPPING} from "./utils/states";
+import {AVAILABLE, CANCELLED, ERROR, REMOVED, SCANNING, STOPPING} from "./utils/states";
 import Options from "./classes/Options";
 
 export default class Scanner {
@@ -9,11 +9,12 @@ export default class Scanner {
     options = new Options();
 
     constructor(options){
-        if (!options) throw new Error('Need to provide options object to create scanner');
-        if (!options.hasOwnProperty('parentElement')) throw new Error('Need parent element to append created scanner');
-        if (!options.hasOwnProperty('position')) throw new Error('Need starting position for scanner');
-        if (!options.hasOwnProperty('performScan')) throw new Error('Need method for performing scan');
         this.setOptions(options);
+        if (!this.getOption('parentElement')) throw new Error('Need parent element to append created scanner');
+        if (!this.getOption('position')) throw new Error('Need starting position for scanner');
+        if (!this.getOption('performScan')) throw new Error('Need method for performing scan');
+
+        this.message = new Message(this);
     }
 
     setState(state){
@@ -25,9 +26,13 @@ export default class Scanner {
     }
 
     setOptions(options){
-        for (let key in options){
-            this.options[key] = options[key];
+        for (let option in options){
+            this.setOption(option, options[option]);
         }
+    }
+
+    setOption(option, value){
+        this.options[option] = value;
     }
 
     getOption(option){
@@ -47,8 +52,15 @@ export default class Scanner {
 
         this.icon = document.createElement('p');
         this.icon.className = 'icon';
-        this.icon.style.fontSize = '2rem';
-        this.icon.innerHTML = this.getOption('iconHTML');
+        this.iconTopBorder = document.createElement('div');
+        this.iconTopBorder.className = 'iconTopBorder';
+        this.iconBottomBorder = document.createElement('div');
+        this.iconBottomBorder.className = 'iconBottomBorder';
+        this.iconContent = document.createElement('div');
+        this.iconContent.innerHTML = this.getOption('iconHTML');
+        this.icon.append(this.iconTopBorder);
+        this.icon.append(this.iconBottomBorder);
+        this.icon.append(this.iconContent);
 
         this.backBtn = document.createElement('button');
         this.backBtn.type = 'button';
@@ -56,7 +68,6 @@ export default class Scanner {
         this.backBtn.innerHTML = this.getOption('backBtnHTML');
         this.backBtn.addEventListener('click', async () => this.cancel());
 
-        this.message = new Message(this);
         this.stream = new Stream(this);
         this.scan = new Scan(this);
 
@@ -91,6 +102,7 @@ export default class Scanner {
             await this.stream.stop();
         }
         await this.animateOut();
+        setTimeout(() => this.message.hide(), 2000);
         this.scanner.remove();
         this.setState(REMOVED);
     }
@@ -113,7 +125,7 @@ export default class Scanner {
     //Cancel scanning
     async cancel(){
         await this.stop();
-        this.message.update(CANCEL)
+        this.message.update(CANCELLED);
     }
 
     //Error scanning
@@ -138,16 +150,15 @@ export default class Scanner {
                 top ${duration}ms ease-in-out
             `;
             this.scanner.style.zIndex = "1000";
-            this.scanner.style.opacity = '1';
+            this.scanner.style.opacity = '.9';
             this.scanner.style.top = 0;
             this.scanner.style.left = 0;
             this.scanner.style.width = '100vw';
             this.scanner.style.height = '100vh';
-
-            this.icon.style.fontSize = '50vh';
         };
         return new Promise( async res => {
             await this.requestAnimation(animation, duration);
+            this.scanner.classList.add('show');
             this.backBtn.style.opacity = '1';
             res();
         })
@@ -160,6 +171,7 @@ export default class Scanner {
             this.backBtn.style.opacity = '0';
             this.stream.hide();
 
+            this.scanner.classList.remove('show');
             this.scanner.style.transition = `
                 width ${duration}ms ease-in-out,
                 height ${duration}ms ease-in-out,
@@ -171,8 +183,6 @@ export default class Scanner {
             this.scanner.style.left = position.left + 'px';
             this.scanner.style.width = position.width + 'px';
             this.scanner.style.height = position.height + 'px';
-
-            this.icon.style.fontSize = '2rem';
         };
 
         return new Promise( async res => {

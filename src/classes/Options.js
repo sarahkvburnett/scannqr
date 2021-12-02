@@ -17,7 +17,7 @@ export default class Options {
      * Customisable scanning function called on each video frame
      * Use this.setState(), this.setResult(), this.setError()
      */
-    performScan;
+    performScan = () => {};
 
     //DEFAULTS
     /*
@@ -33,7 +33,7 @@ export default class Options {
     /**
      * Back button text
      */
-    backButtonHTML = 'Go Back';
+    backBtnHTML = 'Go Back';
 
     /*
     * Which camera to source
@@ -49,6 +49,11 @@ export default class Options {
     messageElement
 
     /*
+     * Classname used for created message element
+     */
+    messageClassname = 'scannerMessage';
+
+    /*
     * Whether to display video stream
     * boolean
     */
@@ -57,10 +62,11 @@ export default class Options {
     /*
      Text for messages
      */
-    errorHTML = 'Scanning Error';
-    successHTML = 'Scanning Success';
-    failedHTML = 'Scanning Failed';
-    cancelledHTML = 'Scanning Cancelled';
+    scanningHTML = '<i class="fas fa-spinner"></i> Scanning';
+    errorHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Error';
+    successHTML = '<i class="fas fa-check-circle"></i> Scanning Success';
+    failedHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Failed';
+    cancelledHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Cancelled';
 
     /*
     Scan callbacks

@@ -9,6 +9,9 @@ export default class Result {
         this.error = scan.error;
         this.scanner = scan.getScanner();
         this.message = scan.getMessage();
+        this.onSuccess = this.getOption('handleSuccess');
+        this.onFailure = this.getOption('handleFailure');
+        this.onError = this.getOption('handleSuccess');
     }
 
     getOption(option){
@@ -16,7 +19,6 @@ export default class Result {
     }
 
     handle(){
-        this.message.update(this.type);
         switch (this.type){
             case SUCCESS:
                 this.handleSuccess(this.result);
@@ -30,16 +32,19 @@ export default class Result {
     }
 
     handleSuccess(result){
-        this.getOption('handleSuccess')(result);
+        this.message.update(this.type);
+        this.onSuccess(result);
         this.scanner.stop();
     }
 
     handleFailure(error){
-        this.getOption('handleFailure')(error);
+        this.message.update(this.type);
+        this.onFailure(error);
     }
 
     handleError(error){
-        this.getOption('handleError')(error);
+        this.message.update(this.type);
+        this.onError(error);
         this.scanner.stop();
     }
 

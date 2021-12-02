@@ -4,8 +4,9 @@ export default class Scan {
 
     scannedImages = [];
 
-    constructor(options, scanner) {
+    constructor(scanner) {
         this.scanner = scanner;
+        this.stream = scanner.stream;
         this.performScan = this.getOption('performScan');
     }
 
@@ -38,7 +39,6 @@ export default class Scan {
     }
 
     prepare(){
-        this.stream = this.scanner.stream;
         this.stream.draw();
         this.stream.blob(blob => this.addImage(blob));
         return this.getLastImage();

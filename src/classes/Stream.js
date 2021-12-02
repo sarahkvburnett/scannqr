@@ -39,7 +39,10 @@ export default class Stream {
         this.canvas.height = this.video.videoHeight;
         this.canvas.width = this.video.videoWidth;
         this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
-        if (this.getOption('displayVideo') && this.canvas.style.opacity == 0) this.canvas.style.opacity = 1;
+        if (this.getOption('displayVideo') && this.canvas.style.opacity == 0) {
+            this.scanner.scanner.style.opacity = 1;
+            this.canvas.style.opacity = 1;
+        }
     }
 
     blob(callback) {
@@ -47,7 +50,7 @@ export default class Stream {
     }
 
     data(){
-        return this.canvas.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        return this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
     }
 
     line(begin, end){
