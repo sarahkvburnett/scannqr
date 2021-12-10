@@ -9,7 +9,7 @@ Customisable javascript (qr code) scanner
 
 ## 📦 Getting Started
 For now download generated dist folder and include in project
-####JS Module
+#### JS Module
 ```js
 // ES6 import
 import {Scanner} from "/your-path-to-scanner/dist/index.js";
@@ -41,7 +41,7 @@ const scanner = new Scanner({
 ```
 
 ## ⚙️ Options
-###Required
+### Required
 ###`performScan`
 Type: `Function`  
 Default: `undefined`  
@@ -52,46 +52,46 @@ Utilise `this.setState()` - `'SUCCESS'` |`'FAILURE'` | `'ERROR'`
 Example:
 
 
-###Optional
-###`parentElement` 
+### Optional
+### `parentElement` 
 Type: `HTMLElement`  
 Default:`document.querySelector('.scan')`  
 
 Element to append scanner
 
-###`startElement`
+### `startElement`
 Type: `HTMLElement`  
 Default:`document.querySelector('.scanBtn')`  
 
 Starting element for scanner - used to initiate scanner and calculate starting position
 
-###`classname`
+### `classname`
 Type: `string`  
 Default:`scanner`  
 
 Classname for scanner
 
-###`theme`
+###` theme`
 Type: `string`  
 Options: `dark` | `light`  
 Default:`dark`  
 
 Theme for scanner - background color
 
-###`iconHTML`
+### `iconHTML`
 Type: `string`  
 Default:`<i class="fa fa-search"></i>`  
 
 HTML used for scanner background prior/instead of video display
 
-###`backBtnHTML`
+### `backBtnHTML`
 Type: `string`  
 Default:`Go Back`  
 
 HTML used for scanner background prior/instead of video display
 
 
-###`videoFacingMode`
+### `videoFacingMode`
 Type: `String`  
 Options: `user` | `environment` | `left` | `right`  
 Default: `environment`
@@ -99,7 +99,7 @@ Default: `environment`
 Which camera to source stream to be scanned as in:
 `MediaTrackConstraints.facingMode
 `
-###`messageElement`
+### `messageElement`
 Type: `HTMLElement`
 Default: `null`
 
@@ -107,79 +107,79 @@ Element used to append messages
 e.g. document.querySelector('.scanner-message');
 If false, div.message created within scanner
 
-###`messageClassname`
+### `messageClassname`
 Type: `String`
 Default: `scannerMessage`
 
 Classname used for created message element
 
-###`displayMessage` 
+### `displayMessage` 
 Type: `Boolean`  
 Default: true
 
 Whether to display message
 
-###`displayVideo`
+### `displayVideo`
 Type: `Boolean`  
 Default: true
 
 Whether to display video
 
-###`scanningHTML`
+### `scanningHTML`
 Type: `String`  
 Default: `<i class="fas fa-spinner"></i> Scanning`
 
 HTML for scanning message
 
-###`errorHTML`
+### `errorHTML`
 Type: `String`  
 Default: `<i class="fas fa-exclamation-circle"></i> Scanning Error`
 
 HTML for scan error
 
-###`successHTML`
+### `successHTML`
 Type: `String`  
 Default: `<i class="fas fa-check-circle"></i> Scanning Success`
 
 HTML for scan success
 
-###`failedHTML`
+### `failedHTML`
 Type: `String`  
 Default: `<i class="fas fa-exclamation-circle"></i> Scanning Failed`
 
 HTML for failed scan
 
-###`cancelledHTML`
+### `cancelledHTML`
 Type: `String`  
 Default: `<i class="fas fa-exclamation-circle"></i> Scanning Cancelled`
 
 HTML for cancelled scan
 
-###`unauthorisedHTML`
+### `unauthorisedHTML`
 Type: `String`  
 Default: `<i class="fas fa-exclamation-circle"></i> Missing permission to access camera`
 
 HTML for unauthorized scan failure
 
-###`handleSuccess`
+### `handleSuccess`
 Type: `Function`  
 Default: `() => {}`
 
 Callback for additional action on scan success
 
-###`handleError`
+### `handleError`
 Type: `Function`  
 Default: `() => {}`
 
 Callback for additional action on scan error
 
-###`handleFailure`
+### `handleFailure`
 Type: `Function`  
 Default: `() => {}`
 
 Callback for additional action on scan failure
 
-###`primaryColor`
+### `primaryColor`
 Type: `String`  
 Default: `#03a803`
 
@@ -196,9 +196,9 @@ To remove dependency, pass in a replacement for the following options:
 -  `unauthorisedHTML`
 
 
-#QR Scanner
+# QR Scanner
 Extension to scan video stream for QRCodes using the [jsQR](https://github.com/cozmo/jsQR) QR code reading library. Detected QR code outlined and then outputted into input. Form can then be submitted if passed in. 
-####JS Module
+#### JS Module
 ```js
 // ES6 import
 import {QRScanner} from "/your-path-to-scanner/dist/index.js";
@@ -209,7 +209,7 @@ const {QRScanner} = require("/your-path-to-scanner/dist/index.js");
 QRScanner(...);
 
 ```
-####HTML Script tag
+#### HTML Script tag
 
 ```html
 <script src="/your-path-to-scanner/dist/index.js"></script>
@@ -218,17 +218,17 @@ QRScanner(...);
 </script>
 ```
 
-##Options
-###Required
+## Options
+### Required
 
-###`outputElement`
+### `outputElement`
 Type: `String`  
 Default: `document.querySelector('.find')`  
 
 Input element to output QR code message
 
-###Optional
-###`submitButton`
+### Optional
+### `submitButton`
 Type: `String`  
 Default: `document.querySelector('.submitBtn')`  
 
