@@ -1,4 +1,4 @@
-import {CANCELLED, ERROR, FAILED, SUCCESS} from "../utils/states";
+import {CANCELLED, ERROR, FAILED, SUCCESS, UNAUTHORIZED} from "../utils/states";
 
 export default class Message {
 
@@ -55,6 +55,8 @@ export default class Message {
                 return this.getOption('failedHTML');
             case CANCELLED:
                 return this.getOption('cancelledHTML');
+            case UNAUTHORIZED:
+                return this.getOption('unauthorisedHTML');
             default:
                 return this.getOption('scanningHTML');
         }

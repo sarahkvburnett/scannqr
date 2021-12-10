@@ -1,4 +1,4 @@
-import {ERROR, FAILED, SUCCESS} from "../utils/states";
+import {ERROR, FAILED, PENDING, SUCCESS} from "../utils/states";
 
 export default class Result {
 
@@ -38,6 +38,7 @@ export default class Result {
     }
 
     async handleFailure(error){
+        this.scan.setState(PENDING);
         this.message.update(this.type);
         await this.onFailure(error);
     }

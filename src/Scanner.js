@@ -1,7 +1,7 @@
 import Message from "./classes/Message";
 import Scan from "./classes/Scan";
 import Stream from "./classes/Stream";
-import {AVAILABLE, CANCELLED, ERROR, REMOVED, SCANNING, STOPPING} from "./utils/states";
+import {AVAILABLE, CANCELLED, REMOVED, SCANNING, STOPPING, UNAUTHORIZED} from "./utils/states";
 import Options from "./classes/Options";
 
 export default class Scanner {
@@ -10,11 +10,12 @@ export default class Scanner {
 
     constructor(options){
         this.setOptions(options);
-        if (!this.getOption('parentElement')) throw new Error('Need parent element to append created scanner');
-        if (!this.getOption('position')) throw new Error('Need starting position for scanner');
-        if (!this.getOption('performScan')) throw new Error('Need method for performing scan');
 
         this.message = new Message(this);
+
+        this.startElement = this.getOption('startElement');
+        this.position = this.startElement.getBoundingClientRect();
+        this.startElement.addEventListener('click', async () => this.start());
     }
 
     setState(state){
@@ -29,6 +30,7 @@ export default class Scanner {
         for (let option in options){
             this.setOption(option, options[option]);
         }
+        if (!this.getOption('performScan')) throw new Error('Need method for performing scan');
     }
 
     setOption(option, value){
@@ -42,8 +44,10 @@ export default class Scanner {
     //Create scanner over calling element with video, canvas, back button, bg icon
     create(){
         this.scanner = document.createElement('div');
-        const {top, left, width, height} = this.getOption('position');
+        const {top, left, width, height} = this.position;
+
         this.scanner.classList.add(this.getOption('classname'));
+        this.scanner.classList.add(this.getOption('theme'));
         this.scanner.style.position = 'fixed';
         this.scanner.style.top = top + 'px';
         this.scanner.style.left = left + 'px';
@@ -66,7 +70,7 @@ export default class Scanner {
         this.backBtn.type = 'button';
         this.backBtn.id = 'backBtn';
         this.backBtn.innerHTML = this.getOption('backBtnHTML');
-        this.backBtn.addEventListener('click', async () => this.cancel());
+        this.backBtn.addEventListener('click', async () => this.handleCancel());
 
         this.stream = new Stream(this);
         this.scan = new Scan(this);
@@ -76,8 +80,8 @@ export default class Scanner {
         this.scanner.appendChild(this.icon);
         this.scanner.appendChild(this.backBtn);
 
-        const parentElement = this.getOption('parentElement');
-        parentElement.appendChild(this.scanner);
+        const parent = this.getOption('parentElement');
+        parent.appendChild(this.scanner);
 
         this.setState(AVAILABLE)
     }
@@ -86,12 +90,12 @@ export default class Scanner {
     async start(){
         if (!this.scanner || this.isState(REMOVED)) this.create();
         try {
-            await this.animateIn();
+            await this.animateIn(); //Animation first to allow animation to mask video start lag
             await this.stream.start();
             this.setState(SCANNING);
             await this.requestFrameScan();
         } catch (e) {
-            await this.error('Unable to start scanning');
+            await this.handleError();
         }
     }
 
@@ -116,22 +120,24 @@ export default class Scanner {
     async scanFrame() {
         if (!this.isScanning()) return;
         if (this.stream.ready()) {
-            const frame = this.scan.prepare();
-            await this.scan.perform(frame);
+            this.scan.prepare();
+            await this.scan.perform();
         }
         await this.requestFrameScan();
     }
 
     //Cancel scanning
-    async cancel(){
+    async handleCancel(){
         await this.stop();
         this.message.update(CANCELLED);
     }
 
     //Error scanning
-    async error(message){
-        await this.stop();
-        this.message.update(ERROR, message)
+    async handleError(){
+        setTimeout( async () => {
+            await this.stop();
+            this.message.update(UNAUTHORIZED);
+        }, 300)
     }
 
     //State
@@ -166,9 +172,9 @@ export default class Scanner {
 
     async animateOut(){
         const duration = '350';
-        const position = this.getOption('position');
+        const {top, left, width, height} = this.position;
         const animation = () => {
-            this.backBtn.style.opacity = 1;
+            this.backBtn.style.opacity = 0;
             this.stream.hide();
             this.scanner.classList.remove('show');
             this.scanner.style.transition = `
@@ -178,10 +184,10 @@ export default class Scanner {
                 top ${duration}ms ease-in-out
             `;
 
-            this.scanner.style.top = position.top + 'px';
-            this.scanner.style.left = position.left + 'px';
-            this.scanner.style.width = position.width + 'px';
-            this.scanner.style.height = position.height + 'px';
+            this.scanner.style.top = top + 'px';
+            this.scanner.style.left = left + 'px';
+            this.scanner.style.width = width + 'px';
+            this.scanner.style.height = height + 'px';
         };
 
         return new Promise( async res => {

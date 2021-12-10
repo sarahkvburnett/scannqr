@@ -4,14 +4,13 @@
   "description": "Customisable live video scanning component with ability to scan QR codes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "rollup --config rollup.config.scanner.js && rollup --config rollup.config.qrscanner.js && sass src/scss:dist/css -s compressed",
     "demo": "rollup --config rollup.config.demo.js && sass src/demo:demo/css -s compressed"
   },
   "author": "Sarah Burnett",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4",
     "jsqr": "^1.4.0"
   },
   "devDependencies": {
@@ -21,6 +20,7 @@
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-strip": "^2.0.0",
+    "canvas": "^2.8.0",
     "jest": "^27.4.3",
     "rollup": "^2.60.0",
     "rollup-plugin-banner": "^0.2.1",

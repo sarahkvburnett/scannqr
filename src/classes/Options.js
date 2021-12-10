@@ -1,17 +1,18 @@
 export default class Options {
-    //ESSENTIAL
-    /*
-    * Element to append scanner
-    * e.g. document.querySelector('.scanner-container');
-    * */
-    parentElement;
+
+    /** === Customisable Options for Scanner/QRScanner === **/
 
     /*
-    * Starting position for scanner
-    * DOMRect object
-    *  e.g. document.querySelector('scanBtn').getBoundingClientRect()
+    * Element to append scanner
+    * HTMLElement
+    * */
+    parentElement = document.querySelector('.scan');
+
+    /*
+    * Starting element for scanner - used to initiate scanner and calculate starting position
+    * HTMLElement
     */
-    position;
+    startElement = document.querySelector('.scanBtn');
 
     /*
      * Customisable scanning function called on each video frame
@@ -25,12 +26,19 @@ export default class Options {
      */
     classname = 'scanner';
 
+    /**
+     * Theme for scanner
+     * 'dark', 'light'
+     */
+    theme = 'dark';
+
+
     /*
      * Icon used for scanner background
      */
     iconHTML = '<i class="fa fa-search"></i>';
 
-    /**
+    /*
      * Back button text
      */
     backBtnHTML = 'Go Back';
@@ -73,9 +81,10 @@ export default class Options {
     successHTML = '<i class="fas fa-check-circle"></i> Scanning Success';
     failedHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Failed';
     cancelledHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Cancelled';
+    unauthorisedHTML = '<i class="fas fa-exclamation-circle"></i> Missing permission to access camera';
 
     /*
-    Scan callbacks
+    Scan callbacks for additional actions
      */
     async handleSuccess(){};
     async handleFailure(){};
@@ -86,4 +95,17 @@ export default class Options {
      */
     primaryColor = '#03a803';
 
+    /** === Additional Options for QRScanner === **/
+
+    /*
+      * Input element to output QR code message REQUIRED
+      * e.g. document.querySelector('.find');
+      */
+    outputElement;
+
+    /**
+     * Submit button to click on successful QR code extraction OPTIONAL
+     * e.g. document.querySelector('.submitBtn');
+     */
+    submitButton;
 }

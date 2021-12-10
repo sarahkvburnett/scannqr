@@ -1,6 +1,9 @@
-@import "../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+/*!
+  Scanner v1.0.0
+ */
 
-$background-color: rgba(#888,.9);
+$light-background-color: #fff;
+$dark-background-color: rgba(#888,.9);
 $icon-color: #111;
 $icon-border: 10px solid $icon-color;
 
@@ -26,10 +29,10 @@ $icon-border: 10px solid $icon-color;
 .scanner,
 .qrScanner {
   margin: 0;
-  background-color: $background-color;
   opacity: 0;
   z-index: -1;
   display: flex;
+  border: 1px solid #858585;
 
   video {
     display: none;
@@ -124,7 +127,12 @@ $icon-border: 10px solid $icon-color;
       }
     }
   }
-
+ &.dark {
+   background-color: $dark-background-color;
+ }
+  &.light {
+    background-color: $light-background-color;
+  }
 }
 
 .scannerMessage,

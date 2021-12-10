@@ -4,18 +4,6 @@ import {SUCCESS} from "./utils/states";
 
 export default class QRScanner extends Scanner {
 
-    /*
-     * Input element to output QR code message REQUIRED
-     * e.g. document.querySelector('.find');
-     */
-    outputElement;
-
-    /**
-     * Submit button to click on successful QR code extraction OPTIONAL
-     * e.g. document.querySelector('.submitBtn');
-     */
-    submitButton;
-
     constructor(options){
         super(options);
         if (!this.getOption('outputElement')) throw new Error("Missing input element to output QR code message");

@@ -1,8 +1,10 @@
 import Result from "./Result";
+import {CANCELLED, ERROR, FAILED, PENDING, SCANNING, SUCCESS} from "../utils/states";
 
 export default class Scan {
 
     scannedImages = [];
+    state = PENDING;
 
     constructor(scanner) {
         this.scanner = scanner;
@@ -27,10 +29,23 @@ export default class Scan {
     }
 
     setState(state){
-        this.state = state;
+        switch (state){
+            case SUCCESS:
+            case FAILED:
+            case CANCELLED:
+            case ERROR:
+                //Delay result states to allow for UI updates
+                setTimeout(() => this.state = state, 300);
+                break;
+            case PENDING:
+            case SCANNING:
+            default:
+                this.state = state;
+                break;
+        }
     }
 
-    setResult(result){
+     setResult(result){
         this.result = result;
     }
 
@@ -41,11 +56,10 @@ export default class Scan {
     prepare(){
         this.stream.draw();
         this.stream.blob(blob => this.addImage(blob));
-        return this.getLastImage();
     }
 
-    async perform(image){
-        await this.performScan(image);
+    async perform(){
+        await this.performScan();
         const result = new Result(this);
         await result.handle();
     }
@@ -56,6 +70,10 @@ export default class Scan {
 
     getLastImage(){
         return this.scannedImages.pop();
+    }
+
+    hasLastImage(){
+        return this.scannedImages.length > 0;
     }
 
 }
