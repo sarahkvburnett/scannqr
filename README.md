@@ -1,27 +1,26 @@
-# Scanner
+# Scannqr
 
-Customisable live video scanning component with ability to scan QR codes
+Customisable javascript (qr code) scanner
 
 ## 🚀 Features
 - Fully customisable using options
 - Ability to scan and output QR codes with QRScanner
-- Zero dependencies (if overwrite Font Awesome icons)
-- Themes available
+- Dark/Light theme available
 
 ## 📦 Getting Started
 For now download generated dist folder and include in project
 ####JS Module
 ```js
 // ES6 import
-import Scanner from "/your-path-to-scanner/dist/Scanner.js";
+import {Scanner} from "/your-path-to-scanner/dist/index.js";
 
 // CommonJS require
-const jsQR = require("/your-path-to-scanner/dist/Scanner.js");
+const {Scanner} = require("/your-path-to-scanner/dist/index.js");
 ```
-####HTML Script tag
+#### HTML Script tag
 
 ```html
-<script src="/your-path-to-scanner/dist/Scanner.js"></script>
+<script src="/your-path-to-scanner/dist/index.js"></script>
 ```
 
 
@@ -202,10 +201,10 @@ Extension to scan video stream for QRCodes using the [jsQR](https://github.com/c
 ####JS Module
 ```js
 // ES6 import
-import QRScanner from "/your-path-to-scanner/dist/QRScanner.js";
+import {QRScanner} from "/your-path-to-scanner/dist/index.js";
 
 // CommonJS require
-const QRScanner = require("/your-path-to-scanner/dist/QRScanner.js");
+const {QRScanner} = require("/your-path-to-scanner/dist/index.js");
 
 QRScanner(...);
 
@@ -213,7 +212,7 @@ QRScanner(...);
 ####HTML Script tag
 
 ```html
-<script src="/your-path-to-scanner/dist/QRScanner.js"></script>
+<script src="/your-path-to-scanner/dist/index.js"></script>
 <script>
   QRScanner(...)
 </script>

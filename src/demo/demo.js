@@ -1,6 +1,4 @@
-import QRScanner from "../QRScanner";
-import Scanner from "../Scanner";
-
+import {QRScanner, Scanner} from "../../dist/index.esm";
 
 const scanner = new Scanner({
     parentElement: document.querySelector('.scanner-demo'),

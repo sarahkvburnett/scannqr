@@ -9,24 +9,24 @@ import strip from '@rollup/plugin-strip';
 
 const config = [
     {
-        input: "src/QRScanner.js",
+        input: "src/index.js",
         output: [
             {
-                file: "dist/QRScanner.cjs.js",
+                file: "dist/index.cjs.js",
                 format: "cjs",
             },
             {
-                file: "dist/QRScanner.esm.js",
+                file: "dist/index.esm.js",
                 format: "esm",
             },
             {
                 name: "Scanner",
-                file: "dist/QRScanner.js",
+                file: "dist/index.js",
                 format: "umd",
             },
         ],
         plugins: [
-            strip(),  // removes console.log
+            // strip(),  // removes console.log
             commonjs({
                 include: "node_modules/**",
             }),
@@ -36,7 +36,7 @@ const config = [
                 babelHelpers: "bundled",
             }),
             terser(), // minify javascript
-            banner('QRScanner\nv<%= pkg.version %>\nby <%= pkg.author %>'),
+            banner('Scannqr\nv<%= pkg.version %>\nby <%= pkg.author %>'),
         ],
     },
 ];
