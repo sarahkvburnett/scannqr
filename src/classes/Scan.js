@@ -47,7 +47,7 @@ export default class Scan {
     async perform(image){
         await this.performScan(image);
         const result = new Result(this);
-        result.handle();
+        await result.handle();
     }
 
     addImage(image){

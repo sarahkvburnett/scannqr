@@ -8,17 +8,21 @@ const scanner = new Scanner({
     parentElement: document.querySelector('.scanner-demo'),
     position: scannerBtn.getBoundingClientRect(),
     performScan: function(){
-        this.result = {"msg": 'It works!'};
-        this.setState('SUCCESS');
+        setTimeout(() => {
+            this.result = {"msg": 'It works!'};
+            this.setState('SUCCESS');
+        }, 10000)
     },
-    displayVideo: false
+    displayVideo: false,
+    displayMessage: false,
 });
 
 const qrScanner = new QRScanner({
     parentElement: document.querySelector('.qrscanner-demo'),
     position: qrScannerBtn.getBoundingClientRect(),
     outputElement: document.querySelector('#qrscannerOutput'),
-    submitButton: document.querySelector('#qrScannerBtn')
+    submitButton: document.querySelector('#qrScannerBtn'),
+    successHTML: '<i class="fas fa-check-circle"></i> QR Code Found'
 });
 
 scannerBtn.addEventListener('click', () => scanner.start());

@@ -22,6 +22,8 @@ export default class QRScanner extends Scanner {
 
         this.options.messageClassname = 'qrScannerMessage';
 
+        this.options.iconHTML = '<i class="fa fa-qrcode"></i>'
+
         this.options.performScan = function(){
             const result = this.checkForQRCode();
             if (result) {
@@ -37,7 +39,7 @@ export default class QRScanner extends Scanner {
         };
     }
 
-    create() {
+    create(){
         super.create();
 
         this.scan.checkForQRCode = function(){
@@ -54,6 +56,7 @@ export default class QRScanner extends Scanner {
             this.stream.line(result.location.bottomLeftCorner, result.location.topLeftCorner);
             await new Promise((res) => setTimeout(res, 800));
         }
+
     }
 
 }

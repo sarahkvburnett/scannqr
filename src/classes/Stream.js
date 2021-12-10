@@ -10,7 +10,6 @@ export default class Stream {
         this.video.autoplay = true;
         this.video.muted = true;
         this.video.playsInline = true;
-
     }
 
     getOption(option){

@@ -7,6 +7,7 @@ export default class Message {
     constructor(scanner) {
         this.scanner = scanner;
         this.element = this.getOption('messageElement') ?? this.create();
+        if (!this.getOption('displayMessage')) this.element.style.display = 'none';
     }
 
     getOption(option){

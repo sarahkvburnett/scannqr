@@ -1,6 +1,6 @@
 @import "../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 
-$background-color: #888;
+$background-color: rgba(#888,.9);
 $icon-color: #111;
 $icon-border: 10px solid $icon-color;
 
@@ -52,7 +52,9 @@ $icon-border: 10px solid $icon-color;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    transition: font-size .3s ease-in;
+    opacity: 0;
+    font-size: 90px;
+    transition: opacity 100ms linear;
     position: absolute;
     top: 0;
     left: 0;
@@ -73,11 +75,12 @@ $icon-border: 10px solid $icon-color;
     z-index: 1002;
     padding: .7rem 1.3rem;
     @extend %button;
+    @extend %button;
   }
 
   &.show {
     .icon {
-      font-size: 90px;
+      opacity: 1;
       height: 200px;
       width: 200px;
       padding: 3rem;

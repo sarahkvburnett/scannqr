@@ -18,33 +18,33 @@ export default class Result {
         return this.scan.getOption(option);
     }
 
-    handle(){
+    async handle(){
         switch (this.type){
             case SUCCESS:
-                this.handleSuccess(this.result);
+                await this.handleSuccess(this.result);
                 break;
             case FAILED:
-                this.handleFailure(this.error);
+                await this.handleFailure(this.error);
                 break;
             case ERROR:
-                this.handleError(this.error);
+                await this.handleError(this.error);
         }
     }
 
-    handleSuccess(result){
+    async handleSuccess(result){
         this.message.update(this.type);
-        this.onSuccess(result);
+        await this.onSuccess(result);
         this.scanner.stop();
     }
 
-    handleFailure(error){
+    async handleFailure(error){
         this.message.update(this.type);
-        this.onFailure(error);
+        await this.onFailure(error);
     }
 
-    handleError(error){
+    async handleError(error){
         this.message.update(this.type);
-        this.onError(error);
+        await this.onError(error);
         this.scanner.stop();
     }
 

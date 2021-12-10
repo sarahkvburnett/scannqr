@@ -54,6 +54,12 @@ export default class Options {
     messageClassname = 'scannerMessage';
 
     /*
+    * Whether to display message
+    * boolean
+    */
+    displayMessage = true;
+
+    /*
     * Whether to display video stream
     * boolean
     */
@@ -76,7 +82,7 @@ export default class Options {
     async handleError(){};
 
     /*
-     * Primary color used to draw outline on canvas
+     * Primary color e.g. used to draw on canvas
      */
     primaryColor = '#03a803';
 

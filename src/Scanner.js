@@ -150,7 +150,7 @@ export default class Scanner {
                 top ${duration}ms ease-in-out
             `;
             this.scanner.style.zIndex = "1000";
-            this.scanner.style.opacity = '.9';
+            this.scanner.style.opacity = 1;
             this.scanner.style.top = 0;
             this.scanner.style.left = 0;
             this.scanner.style.width = '100vw';
@@ -168,9 +168,8 @@ export default class Scanner {
         const duration = '350';
         const position = this.getOption('position');
         const animation = () => {
-            this.backBtn.style.opacity = '0';
+            this.backBtn.style.opacity = 1;
             this.stream.hide();
-
             this.scanner.classList.remove('show');
             this.scanner.style.transition = `
                 width ${duration}ms ease-in-out,
@@ -186,7 +185,7 @@ export default class Scanner {
         };
 
         return new Promise( async res => {
-           await this.requestAnimation(animation, duration);
+            await this.requestAnimation(animation, duration);
            res();
         });
     }
