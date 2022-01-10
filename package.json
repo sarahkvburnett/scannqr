@@ -1,7 +1,7 @@
 {
   "name": "scannqr",
   "version": "1.0.0",
-  "description": "Customisable javascript (qr code) scanner\n",
+  "description": "Customisable javascript video scanner with the ability to scan QR codes",
   "keywords": [
     "scanner", "video", "qr", "qr code", "barcode", "face recognition"
   ],

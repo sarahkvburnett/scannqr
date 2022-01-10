@@ -1,6 +1,6 @@
 # Scannqr
 
-Customisable javascript (qr code) scanner
+Customisable javascript video scanner with the ability to scan QR codes
 
 ## 🚀 Features
 - Fully customisable using options
@@ -8,7 +8,11 @@ Customisable javascript (qr code) scanner
 - Dark/Light theme available
 
 ## 📦 Getting Started
-For now download generated dist folder and include in project
+#### Installation
+```bash
+npm install scannqr
+```
+
 #### JS Module
 ```js
 // ES6 import
@@ -28,9 +32,9 @@ const {Scanner} = require("/your-path-to-scanner/dist/index.js");
 
 1. Create HTML
 ```html
-    <div class="scan">
-        <button id="scanBtn">Scan</button>
-    </section>
+<div class="scan">
+    <button class="scanBtn">Scan</button>
+</div>
 ```    
 2. Create Scanner Instance
 ```js
@@ -42,9 +46,9 @@ const scanner = new Scanner({
 
 ## ⚙️ Options
 ### Required
-###`performScan`
+### `performScan`
 Type: `Function`  
-Default: `undefined`  
+Default: `undefined`
 
 Called on each video to perform scan
 
@@ -53,40 +57,40 @@ Example:
 
 
 ### Optional
-### `parentElement` 
+### `parentElement`
 Type: `HTMLElement`  
-Default:`document.querySelector('.scan')`  
+Default:`document.querySelector('.scan')`
 
 Element to append scanner
 
 ### `startElement`
 Type: `HTMLElement`  
-Default:`document.querySelector('.scanBtn')`  
+Default:`document.querySelector('.scanBtn')`
 
 Starting element for scanner - used to initiate scanner and calculate starting position
 
 ### `classname`
 Type: `string`  
-Default:`scanner`  
+Default:`scanner`
 
 Classname for scanner
 
-###` theme`
+### `theme`
 Type: `string`  
 Options: `dark` | `light`  
-Default:`dark`  
+Default:`dark`
 
 Theme for scanner - background color
 
 ### `iconHTML`
 Type: `string`  
-Default:`<i class="fa fa-search"></i>`  
+Default:`<i class="fa fa-search"></i>`
 
 HTML used for scanner background prior/instead of video display
 
 ### `backBtnHTML`
 Type: `string`  
-Default:`Go Back`  
+Default:`Go Back`
 
 HTML used for scanner background prior/instead of video display
 
@@ -100,7 +104,7 @@ Which camera to source stream to be scanned as in:
 `MediaTrackConstraints.facingMode
 `
 ### `messageElement`
-Type: `HTMLElement`
+Type: `HTMLElement`  
 Default: `null`
 
 Element used to append messages
@@ -108,12 +112,12 @@ e.g. document.querySelector('.scanner-message');
 If false, div.message created within scanner
 
 ### `messageClassname`
-Type: `String`
+Type: `String`   
 Default: `scannerMessage`
 
 Classname used for created message element
 
-### `displayMessage` 
+### `displayMessage`
 Type: `Boolean`  
 Default: true
 
@@ -184,8 +188,8 @@ Type: `String`
 Default: `#03a803`
 
 Primary color used for scanner e.g. used to draw on canvas
-   
-###Dependencies
+
+### Dependencies
 [Font Awesome](https://fontawesome.com/) icons are used by default for the scanner background and for the messages.
 To remove dependency, pass in a replacement for the following options:
 - `scanningHTML`
@@ -197,7 +201,16 @@ To remove dependency, pass in a replacement for the following options:
 
 
 # QR Scanner
-Extension to scan video stream for QRCodes using the [jsQR](https://github.com/cozmo/jsQR) QR code reading library. Detected QR code outlined and then outputted into input. Form can then be submitted if passed in. 
+Extension to scan video stream for QRCodes using the [jsQR](https://github.com/cozmo/jsQR) QR code reading library. Detected QR code outlined and then outputted into input. Form can then be submitted if passed in.
+
+
+## 📦 Getting Started
+
+#### Installation
+```bash
+npm install scannqr
+```
+
 #### JS Module
 ```js
 // ES6 import
@@ -218,18 +231,36 @@ QRScanner(...);
 </script>
 ```
 
+## 🔨 Usage
+
+1. Create HTML
+```html  
+<form class="scan">
+    <button class="scanBtn">Scan</button>
+    <input class="find"/>
+    <button class="submitBtn"/>
+</form>
+```    
+2. Create Scanner Instance
+```js
+const qrScanner = new QRScanner({
+  performScan: () => console.log('Scanning'),
+  //Other options
+});
+```
+
 ## Options
 ### Required
 
 ### `outputElement`
 Type: `String`  
-Default: `document.querySelector('.find')`  
+Default: `document.querySelector('.find')`
 
 Input element to output QR code message
 
 ### Optional
 ### `submitButton`
 Type: `String`  
-Default: `document.querySelector('.submitBtn')`  
+Default: `document.querySelector('.submitBtn')`
 
 Submit button to click on successful QR code extraction
