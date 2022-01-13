@@ -32,16 +32,10 @@ export default class Options {
      */
     theme = 'dark';
 
-
-    /*
-     * Icon used for scanner background
-     */
-    iconHTML = '<i class="fa fa-search"></i>';
-
     /*
      * Back button text
      */
-    backBtnHTML = 'Go Back';
+    backBtnMsg = 'Go Back';
 
     /*
     * Which camera to source
@@ -76,12 +70,12 @@ export default class Options {
     /*
      Text for messages
      */
-    scanningHTML = '<i class="fas fa-spinner"></i> Scanning';
-    errorHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Error';
-    successHTML = '<i class="fas fa-check-circle"></i> Scanning Success';
-    failedHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Failed';
-    cancelledHTML = '<i class="fas fa-exclamation-circle"></i> Scanning Cancelled';
-    unauthorisedHTML = '<i class="fas fa-exclamation-circle"></i> Missing permission to access camera';
+    scanningMsg = 'Scanning';
+    errorMsg = 'Scanning Error';
+    successMsg = 'Scanning Success';
+    failedMsg = 'Scanning Failed';
+    cancelledMsg = 'Scanning Cancelled';
+    unauthorisedMsg = 'Missing permission to access camera';
 
     /*
     Scan callbacks for additional actions

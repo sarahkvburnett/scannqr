@@ -12,16 +12,16 @@ const config = [
         input: "src/index.js",
         output: [
             {
-                file: "dist/index.cjs.js",
+                file: "dist/scannqr.cjs.js",
                 format: "cjs",
             },
             {
-                file: "dist/index.esm.js",
+                file: "dist/scannqr.esm.js",
                 format: "esm",
             },
             {
-                name: "Scanner",
-                file: "dist/index.js",
+                name: "Scannqr",
+                file: "dist/scannqr.js",
                 format: "umd",
             },
         ],

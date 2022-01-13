@@ -1,4 +1,6 @@
 import Scanner from "./Scanner";
+import Scan from "./classes/Scan";
+
 
 function resetDOM(){
     document.body.innerHTML =
@@ -50,6 +52,12 @@ test('should create scanner', () => {
     expect(document.querySelector('.scanner').querySelector('#backBtn')).not.toBeNull();
 })
 
-test('should start camera stream', () => {
-
-})
+it('should generate images to be scanned', async () => {
+    jest.spyOn(Scanner.prototype, 'handleError');
+    const scanner = initialiseScanner('SUCCESS');
+    await scanner.start();
+    console.log(scanner);
+    // expect(scanner.scan.hasLastImage()).toBeTruthy();
+    // expect(scanner.isScanning()).toBeTruthy();
+    expect(scanner.handleError).toBeCalled();
+});

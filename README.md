@@ -3,7 +3,7 @@
 Customisable javascript video scanner with the ability to scan QR codes
 
 ## 🚀 Features
-- Fully customisable using options
+- Fully customisable using the options object when creating scanner and CSS variables
 - Ability to scan and output QR codes with QRScanner
 - Dark/Light theme available
 
@@ -82,18 +82,11 @@ Default:`dark`
 
 Theme for scanner - background color
 
-### `iconHTML`
-Type: `string`  
-Default:`<i class="fa fa-search"></i>`
-
-HTML used for scanner background prior/instead of video display
-
 ### `backBtnHTML`
 Type: `string`  
 Default:`Go Back`
 
 HTML used for scanner background prior/instead of video display
-
 
 ### `videoFacingMode`
 Type: `String`  
@@ -131,37 +124,37 @@ Whether to display video
 
 ### `scanningHTML`
 Type: `String`  
-Default: `<i class="fas fa-spinner"></i> Scanning`
+Default: `Scanning`
 
 HTML for scanning message
 
 ### `errorHTML`
 Type: `String`  
-Default: `<i class="fas fa-exclamation-circle"></i> Scanning Error`
+Default: `Scanning Error`
 
 HTML for scan error
 
 ### `successHTML`
 Type: `String`  
-Default: `<i class="fas fa-check-circle"></i> Scanning Success`
+Default: `Scanning Success`
 
 HTML for scan success
 
 ### `failedHTML`
 Type: `String`  
-Default: `<i class="fas fa-exclamation-circle"></i> Scanning Failed`
+Default: `Scanning Failed`
 
 HTML for failed scan
 
 ### `cancelledHTML`
 Type: `String`  
-Default: `<i class="fas fa-exclamation-circle"></i> Scanning Cancelled`
+Default: `Scanning Cancelled`
 
 HTML for cancelled scan
 
 ### `unauthorisedHTML`
 Type: `String`  
-Default: `<i class="fas fa-exclamation-circle"></i> Missing permission to access camera`
+Default: `Missing permission to access camera`
 
 HTML for unauthorized scan failure
 
@@ -189,15 +182,16 @@ Default: `#03a803`
 
 Primary color used for scanner e.g. used to draw on canvas
 
-### Dependencies
+### CSS Custom Properties
 [Font Awesome](https://fontawesome.com/) icons are used by default for the scanner background and for the messages.
-To remove dependency, pass in a replacement for the following options:
-- `scanningHTML`
--  `errorHTML`
--  `successHTML`
--  `failedHTML`
--  `cancelledHTML`
--  `unauthorisedHTML`
+To replace icons override the following custom properties:  
+`--scan-icon-font-family`  
+`--scan-icon-font-weight`   
+`--scan-icon-success`    
+`--scan-icon-error`   
+`--scan-icon-loading`  
+`--scan-icon-background`  
+
 
 
 # QR Scanner

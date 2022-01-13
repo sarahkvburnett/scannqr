@@ -26,7 +26,7 @@ export default class Message {
     update(type, message = null){
         this.hide();
         this.message = document.createElement('div');
-        this.message.className = this.getClassname(type);
+        this.message.className = 'msg ' + this.getClassname(type);
         this.message.innerHTML = message ? message : this.getMessage(type);
         this.element.append(this.message);
         this.display();
@@ -42,23 +42,33 @@ export default class Message {
     }
 
     getClassname(type){
-        return type.toLowerCase();
+        switch (type) {
+            case SUCCESS:
+                return 'success';
+            case ERROR:
+            case FAILED:
+            case CANCELLED:
+            case UNAUTHORIZED:
+                return 'error';
+            default:
+                return 'loading';
+        }
     }
 
     getMessage(type){
         switch (type) {
             case SUCCESS:
-                return this.getOption('successHTML');
+                return this.getOption('successMsg');
             case ERROR:
-                return this.getOption('errorHTML');
+                return this.getOption('errorMsg');
             case FAILED:
-                return this.getOption('failedHTML');
+                return this.getOption('failedMsg');
             case CANCELLED:
-                return this.getOption('cancelledHTML');
+                return this.getOption('cancelledMsg');
             case UNAUTHORIZED:
-                return this.getOption('unauthorisedHTML');
+                return this.getOption('unauthorisedMsg');
             default:
-                return this.getOption('scanningHTML');
+                return this.getOption('scanningMsg');
         }
     }
 

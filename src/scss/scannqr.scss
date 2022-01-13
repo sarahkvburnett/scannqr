@@ -1,30 +1,6 @@
-/*!
-  Scanner v1.0.0
- */
-
-$light-background-color: #fff;
-$dark-background-color: rgba(#888,.9);
-$icon-color: #111;
-$icon-border: 10px solid $icon-color;
-
-%button {
-  background: #222;
-  color: #ccc;
-  border-radius: 25px;
-  border: none;
-}
-
-%icon-border-pseudo {
-  content: '';
-  width: 30%;
-  height: 100%;
-  transition: color .3s ease-in;
-}
-
-@keyframes spin {
-  from {transform:rotate(0deg);}
-  to {transform:rotate(360deg);}
-}
+@import "custom_properties";
+@import "variables";
+@import "mixins";
 
 .scanner,
 .qrScanner {
@@ -66,6 +42,11 @@ $icon-border: 10px solid $icon-color;
     margin: auto;
     color: $icon-color;
     z-index: -1;
+    &:before {
+      font-family: var(--scan-icon-font-family);
+      font-weight: var(--scan-icon-font-weight);
+      content: var(--scan-icon-background);
+    }
   }
 
   #backBtn {
@@ -77,7 +58,6 @@ $icon-border: 10px solid $icon-color;
     transition: opacity 100ms ease-in;
     z-index: 1002;
     padding: .7rem 1.3rem;
-    @extend %button;
     @extend %button;
   }
 
@@ -144,16 +124,25 @@ $icon-border: 10px solid $icon-color;
     display: flex;
     justify-content: center;
     z-index: 2000;
-    > div {
+    .msg {
       @extend %button;
       background: #333;
       color: #bbb;
       padding: .7rem 3rem;
-      .fas {
+      &:before {
+        font-family: var(--scan-icon-font-family);
+        font-weight: var(--scan-icon-font-weight);
         margin-left: -1rem;
         margin-right: .5rem;
       }
-      .fa-spinner {
+      &.success:before {
+        content: var(--scan-icon-success);
+      }
+      &.error:before {
+        content: var(--scan-icon-error);
+      }
+      &.loading:before {
+        content: var(--scan-icon-loading);
         animation: spin 3s infinite linear;
       }
     }

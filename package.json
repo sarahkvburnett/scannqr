@@ -5,8 +5,8 @@
   "keywords": [
     "scanner", "video", "qr", "qr code", "barcode", "face recognition"
   ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/scannqr.cjs.js",
+  "module": "dist/scannqr.esm.js",
   "scripts": {
     "test": "jest",
     "build": "rollup --config rollup.config.js && sass src/scss:dist/css -s compressed",

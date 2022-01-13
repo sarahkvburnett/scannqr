@@ -8,15 +8,15 @@ export default class QRScanner extends Scanner {
         super(options);
         if (!this.getOption('outputElement')) throw new Error("Missing input element to output QR code message");
 
-        this.options.messageClassname = 'qrScannerMessage';
+        this.options.classname = 'qrScanner';
 
-        this.options.iconHTML = '<i class="fa fa-qrcode"></i>'
+        this.options.messageClassname = 'qrScannerMessage';
 
         this.options.performScan = function(){
             const result = this.checkForQRCode();
             if (result) {
                 this.setResult(result);
-                return this.setState(SUCCESS);
+                return this.setState('SCANNING');
             }
         };
 

@@ -1,0 +1,12 @@
+:root {
+  --scan-icon-font-family: 'Font Awesome 5 Free';
+  --scan-icon-font-weight: 900;
+  --scan-icon-success: '\f058';
+  --scan-icon-error: '\f06a';
+  --scan-icon-loading: '\f110';
+  --scan-icon-background: '\f002';
+}
+
+.qrScanner {
+  --scan-icon-background: '\f029';
+}

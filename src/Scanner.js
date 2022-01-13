@@ -60,16 +60,13 @@ export default class Scanner {
         this.iconTopBorder.className = 'iconTopBorder';
         this.iconBottomBorder = document.createElement('div');
         this.iconBottomBorder.className = 'iconBottomBorder';
-        this.iconContent = document.createElement('div');
-        this.iconContent.innerHTML = this.getOption('iconHTML');
         this.icon.append(this.iconTopBorder);
         this.icon.append(this.iconBottomBorder);
-        this.icon.append(this.iconContent);
 
         this.backBtn = document.createElement('button');
         this.backBtn.type = 'button';
         this.backBtn.id = 'backBtn';
-        this.backBtn.innerHTML = this.getOption('backBtnHTML');
+        this.backBtn.innerHTML = this.getOption('backBtnMsg');
         this.backBtn.addEventListener('click', async () => this.handleCancel());
 
         this.stream = new Stream(this);
