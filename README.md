@@ -16,15 +16,15 @@ npm install scannqr
 #### JS Module
 ```js
 // ES6 import
-import {Scanner} from "/your-path-to-scanner/dist/index.js";
+import {Scanner} from "/your-path-to-scanner/dist/scannqr.js";
 
 // CommonJS require
-const {Scanner} = require("/your-path-to-scanner/dist/index.js");
+const {Scanner} = require("/your-path-to-scanner/dist/scannqr.js");
 ```
 #### HTML Script tag
 
 ```html
-<script src="/your-path-to-scanner/dist/index.js"></script>
+<script src="/your-path-to-scanner/dist/scannqr.js"></script>
 ```
 
 
@@ -208,10 +208,10 @@ npm install scannqr
 #### JS Module
 ```js
 // ES6 import
-import {QRScanner} from "/your-path-to-scanner/dist/index.js";
+import {QRScanner} from "/your-path-to-scanner/dist/scannqr.js";
 
 // CommonJS require
-const {QRScanner} = require("/your-path-to-scanner/dist/index.js");
+const {QRScanner} = require("/your-path-to-scanner/dist/scannqr.js");
 
 QRScanner(...);
 
@@ -219,7 +219,7 @@ QRScanner(...);
 #### HTML Script tag
 
 ```html
-<script src="/your-path-to-scanner/dist/index.js"></script>
+<script src="/your-path-to-scanner/dist/scannqr.js"></script>
 <script>
   QRScanner(...)
 </script>
