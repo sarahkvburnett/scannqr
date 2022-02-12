@@ -8,7 +8,7 @@ const scanner = new Scanner({
         setTimeout(() => {
             this.result = {"msg": 'It works!'};
             this.setState('ERROR');
-        }, 100)
+        }, 5000)
     },
     displayVideo: false
 });

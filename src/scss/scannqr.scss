@@ -43,9 +43,9 @@
     color: $icon-color;
     z-index: -1;
     &:before {
-      font-family: var(--scan-icon-font-family);
-      font-weight: var(--scan-icon-font-weight);
-      content: var(--scan-icon-background);
+      font-family: var(--scanner-icon-font-family);
+      font-weight: var(--scanner-icon-font-weight);
+      content: var(--scanner-icon-background);
     }
   }
 
@@ -129,19 +129,19 @@
       color: #bbb;
       padding: .7rem 3rem;
       &:before {
-        font-family: var(--scan-icon-font-family);
-        font-weight: var(--scan-icon-font-weight);
+        font-family: var(--scanner-icon-font-family);
+        font-weight: var(--scanner-icon-font-weight);
         margin-left: -1rem;
         margin-right: .5rem;
       }
       &.message--success:before {
-        content: var(--scan-icon-success);
+        content: var(--scanner-icon-success);
       }
       &.message--error:before {
-        content: var(--scan-icon-error);
+        content: var(--scanner-icon-error);
       }
       &.message--loading:before {
-        content: var(--scan-icon-loading);
+        content: var(--scanner-icon-loading);
         animation: spin 3s infinite linear;
       }
     }

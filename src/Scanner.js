@@ -52,8 +52,7 @@ export default class Scanner {
         this.scanner = document.createElement('div');
         const {top, left, width, height} = this.position;
 
-        this.scanner.classList.add(this.getOption('classname'));
-        this.scanner.classList.add(`scanner--${this.getOption('theme')}`);
+        this.scanner.className = `${this.getOption('classname')} scanner--${this.getOption('theme')}`
         this.scanner.style.position = 'fixed';
         this.scanner.style.top = top + 'px';
         this.scanner.style.left = left + 'px';
@@ -167,7 +166,7 @@ export default class Scanner {
         };
         return new Promise( async res => {
             await this.requestAnimation(animation, duration);
-            this.scanner.classList.add('show');
+            this.scanner.classList.add('scanner--show');
             this.backBtn.style.opacity = '1';
             res();
         })
@@ -179,7 +178,7 @@ export default class Scanner {
         const animation = () => {
             this.backBtn.style.opacity = 0;
             this.stream.hide();
-            this.scanner.classList.remove('show');
+            this.scanner.classList.remove('scanner--show');
             this.scanner.style.transition = `
                 width ${duration}ms ease-in-out,
                 height ${duration}ms ease-in-out,

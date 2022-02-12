@@ -8,7 +8,7 @@ export default class QRScanner extends Scanner {
         super(options);
 
         /** Option overrides for QRScanner **/
-        this.options.classname = 'scanner--qr';
+        this.options.classname = 'scanner scanner--qr';
 
         /** === Additional Options for QRScanner === **/
 
