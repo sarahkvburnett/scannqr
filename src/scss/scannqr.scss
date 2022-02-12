@@ -3,7 +3,7 @@
 @import "mixins";
 
 .scanner,
-.qrScanner {
+.scanner--qr {
   margin: 0;
   opacity: 0;
   z-index: -1;
@@ -26,7 +26,7 @@
     position: absolute;
   }
 
-  .icon {
+  .scanner__icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,7 +49,7 @@
     }
   }
 
-  #backBtn {
+  .scanner__back-btn {
     opacity: 0;
     position: fixed;
     top: 0;
@@ -61,13 +61,13 @@
     @extend %button;
   }
 
-  &.show {
-    .icon {
+  &.scanner--show {
+    .scanner__icon {
       opacity: 1;
       height: 200px;
       width: 200px;
       padding: 3rem;
-      .iconTopBorder, .iconBottomBorder {
+      .icon__border-top, .icon__border-bottom {
         position: absolute;
         display: flex;
         justify-content: space-between;
@@ -75,7 +75,7 @@
         height: 30%;
         left: 0;
       }
-      .iconTopBorder {
+      .icon__border-top {
         top: 0;
         &:before, &:after {
           border-top: $icon-border;
@@ -90,7 +90,7 @@
           border-right: $icon-border;
         }
       }
-      .iconBottomBorder{
+      .icon__border-bottom{
         bottom: 0;
         &:before, &:after {
           border-bottom: $icon-border;
@@ -107,16 +107,15 @@
       }
     }
   }
- &.dark {
+ &.scanner--dark {
    background-color: $dark-background-color;
  }
-  &.light {
+  &.scanner--light {
     background-color: $light-background-color;
   }
 }
 
-.scannerMessage,
-.qrScannerMessage {
+.scanner__message {
     position: absolute;
     bottom: 2rem;
     left: 0;
@@ -124,7 +123,7 @@
     display: flex;
     justify-content: center;
     z-index: 2000;
-    .msg {
+    .message {
       @extend %button;
       background: #333;
       color: #bbb;
@@ -135,13 +134,13 @@
         margin-left: -1rem;
         margin-right: .5rem;
       }
-      &.success:before {
+      &.message--success:before {
         content: var(--scan-icon-success);
       }
-      &.error:before {
+      &.message--error:before {
         content: var(--scan-icon-error);
       }
-      &.loading:before {
+      &.message--loading:before {
         content: var(--scan-icon-loading);
         animation: spin 3s infinite linear;
       }

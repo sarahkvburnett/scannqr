@@ -6,13 +6,13 @@ export default class Options {
     * Element to append scanner
     * HTMLElement
     * */
-    parentElement = document.querySelector('.scan');
+    wrapper = document.querySelector('.scanner__wrapper');
 
     /*
     * Starting element for scanner - used to initiate scanner and calculate starting position
     * HTMLElement
     */
-    startElement = document.querySelector('.scanBtn');
+    startBtn = document.querySelector('.scanner__start-btn');
 
     /*
      * Customisable scanning function called on each video frame
@@ -53,7 +53,7 @@ export default class Options {
     /*
      * Classname used for created message element
      */
-    messageClassname = 'scannerMessage';
+    messageClassname = 'scanner__message';
 
     /*
     * Whether to display message
@@ -89,17 +89,4 @@ export default class Options {
      */
     primaryColor = '#03a803';
 
-    /** === Additional Options for QRScanner === **/
-
-    /*
-      * Input element to output QR code message REQUIRED
-      * e.g. document.querySelector('.find');
-      */
-    outputElement;
-
-    /**
-     * Submit button to click on successful QR code extraction OPTIONAL
-     * e.g. document.querySelector('.submitBtn');
-     */
-    submitButton;
 }

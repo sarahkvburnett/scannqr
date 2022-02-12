@@ -2,8 +2,8 @@ import Scanner from "../Scanner";
 import QRScanner from "../QRScanner";
 
 const scanner = new Scanner({
-    parentElement: document.querySelector('.scanner-demo'),
-    startElement: document.querySelector('#scannerBtn'),
+    wrapper: document.querySelector('.scanner-demo'),
+    startBtn: document.querySelector('#scannerBtn'),
     performScan: function(){
         setTimeout(() => {
             this.result = {"msg": 'It works!'};
@@ -14,9 +14,9 @@ const scanner = new Scanner({
 });
 
 const qrScanner = new QRScanner({
-    parentElement: document.querySelector('.qrscanner-demo'),
-    startElement: document.querySelector('#qrScannerBtn'),
-    outputElement: document.querySelector('#qrscannerOutput'),
-    submitButton: document.querySelector('#qrScannerBtn'),
+    wrapper: document.querySelector('.qrscanner-demo'),
+    startBtn: document.querySelector('#qrScannerBtn'),
+    input: document.querySelector('#qrscannerOutput'),
+    submitBtn: document.querySelector('#qrScannerBtn'),
     successMsg: 'QR Code Found'
 });

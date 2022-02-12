@@ -16,15 +16,15 @@ npm install scannqr
 #### JS Module
 ```js
 // ES6 import
-import {Scanner} from "/your-path-to-scanner/dist/scannqr.js";
+import {Scanner} from "/your-path-to-scannqr/dist/scannqr.js";
 
 // CommonJS require
-const {Scanner} = require("/your-path-to-scanner/dist/scannqr.js");
+const {Scanner} = require("/your-path-to-scannqr/dist/scannqr.js");
 ```
 #### HTML Script tag
 
 ```html
-<script src="/your-path-to-scanner/dist/scannqr.js"></script>
+<script src="/your-path-to-scannqr/dist/scannqr.js"></script>
 ```
 
 
@@ -32,11 +32,19 @@ const {Scanner} = require("/your-path-to-scanner/dist/scannqr.js");
 
 1. Create HTML
 ```html
-<div class="scan">
-    <button class="scanBtn">Scan</button>
+<div class="scanner__wrapper">
+    <button class="scanner__start-btn">Scan</button>
 </div>
 ```    
-2. Create Scanner Instance
+2. Import CSS
+```html
+    <link rel="stylesheet" href="/your-path-to-scannqr/dist/css/scannqr.css"/>
+    <style>
+      /* Customise any css custom properties */
+    </style>
+
+```   
+3. Create Scanner Instance
 ```js
 const scanner = new Scanner({
   performScan: () => console.log('Scanning'),
@@ -57,15 +65,15 @@ Example:
 
 
 ### Optional
-### `parentElement`
+### `wrapper`
 Type: `HTMLElement`  
-Default:`document.querySelector('.scan')`
+Default:`document.querySelector('.scanner__wrapper')`
 
 Element to append scanner
 
 ### `startElement`
 Type: `HTMLElement`  
-Default:`document.querySelector('.scanBtn')`
+Default:`document.querySelector('.scanner__start-btn')`
 
 Starting element for scanner - used to initiate scanner and calculate starting position
 
@@ -101,12 +109,12 @@ Type: `HTMLElement`
 Default: `null`
 
 Element used to append messages
-e.g. document.querySelector('.scanner-message');
+e.g. document.querySelector('.scanner__message');
 If false, div.message created within scanner
 
 ### `messageClassname`
 Type: `String`   
-Default: `scannerMessage`
+Default: `scanner__message`
 
 Classname used for created message element
 
@@ -122,37 +130,37 @@ Default: true
 
 Whether to display video
 
-### `scanningHTML`
+### `scanningMsg`
 Type: `String`  
 Default: `Scanning`
 
 HTML for scanning message
 
-### `errorHTML`
+### `errorMsg`
 Type: `String`  
 Default: `Scanning Error`
 
 HTML for scan error
 
-### `successHTML`
+### `successMsg`
 Type: `String`  
 Default: `Scanning Success`
 
 HTML for scan success
 
-### `failedHTML`
+### `failedMsg`
 Type: `String`  
 Default: `Scanning Failed`
 
 HTML for failed scan
 
-### `cancelledHTML`
+### `cancelledMsg`
 Type: `String`  
 Default: `Scanning Cancelled`
 
 HTML for cancelled scan
 
-### `unauthorisedHTML`
+### `unauthorisedMsg`
 Type: `String`  
 Default: `Missing permission to access camera`
 
@@ -185,12 +193,12 @@ Primary color used for scanner e.g. used to draw on canvas
 ### CSS Custom Properties
 [Font Awesome](https://fontawesome.com/) icons are used by default for the scanner background and for the messages.
 To replace icons override the following custom properties:  
-`--scan-icon-font-family`  
-`--scan-icon-font-weight`   
-`--scan-icon-success`    
-`--scan-icon-error`   
-`--scan-icon-loading`  
-`--scan-icon-background`  
+`--scanner-icon-font-family`  
+`--scanner-icon-font-weight`   
+`--scanner-icon-success`    
+`--scanner-icon-error`   
+`--scanner-icon-loading`  
+`--scanner-icon-background`  
 
 
 
@@ -219,7 +227,7 @@ QRScanner(...);
 #### HTML Script tag
 
 ```html
-<script src="/your-path-to-scanner/dist/scannqr.js"></script>
+<script src="/your-path-to-scannqr/dist/scannqr.js"></script>
 <script>
   QRScanner(...)
 </script>
@@ -229,13 +237,23 @@ QRScanner(...);
 
 1. Create HTML
 ```html  
-<form class="scan">
-    <button class="scanBtn">Scan</button>
-    <input class="find"/>
-    <button class="submitBtn"/>
+<form class="scanner__wrapper">
+    <button class="scanner__start-btn">Scan</button>
+    <input class="scanner__input"/>
+    <button class="scanner__submit-btn"/>
 </form>
-```    
-2. Create Scanner Instance
+```  
+
+2. Import CSS
+```html
+    <link rel="stylesheet" href="/your-path-to-scannqr/dist/css/scannqr.css"/>
+    <style>
+      /* Customise any css custom properties */
+    </style>
+
+```   
+
+3. Create Scanner Instance
 ```js
 const qrScanner = new QRScanner({
   performScan: () => console.log('Scanning'),
@@ -246,15 +264,15 @@ const qrScanner = new QRScanner({
 ## Options
 ### Required
 
-### `outputElement`
+### `input`
 Type: `String`  
-Default: `document.querySelector('.find')`
+Default: `document.querySelector('.scanner__input')`
 
 Input element to output QR code message
 
 ### Optional
-### `submitButton`
+### `submitBtn`
 Type: `String`  
-Default: `document.querySelector('.submitBtn')`
+Default: `document.querySelector('.scanner__submitBtn')`
 
 Submit button to click on successful QR code extraction

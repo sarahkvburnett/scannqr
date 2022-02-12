@@ -19,14 +19,14 @@ export default class Message {
         this.isCreated = true;
         const element = document.createElement('div');
         element.className = this.getOption('messageClassname');
-        this.getOption('parentElement').append(element);
+        this.getOption('wrapper').append(element);
         return element;
     }
 
     update(type, message = null){
         this.hide();
         this.message = document.createElement('div');
-        this.message.className = 'msg ' + this.getClassname(type);
+        this.message.className = 'message ' + this.getClassname(type);
         this.message.innerHTML = message ? message : this.getMessage(type);
         this.element.append(this.message);
         this.display();
@@ -44,14 +44,14 @@ export default class Message {
     getClassname(type){
         switch (type) {
             case SUCCESS:
-                return 'success';
+                return 'message--success';
             case ERROR:
             case FAILED:
             case CANCELLED:
             case UNAUTHORIZED:
-                return 'error';
+                return 'message--error';
             default:
-                return 'loading';
+                return 'message--loading';
         }
     }
 

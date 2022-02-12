@@ -13,9 +13,9 @@ export default class Scanner {
 
         this.message = new Message(this);
 
-        this.startElement = this.getOption('startElement');
-        this.position = this.startElement.getBoundingClientRect();
-        this.startElement.addEventListener('click', async () => this.start());
+        this.startBtn = this.getOption('startBtn');
+        this.position = this.startBtn.getBoundingClientRect();
+        this.startBtn.addEventListener('click', async () => this.start());
     }
 
     setState(state){
@@ -30,7 +30,7 @@ export default class Scanner {
         for (let option in options){
             this.setOption(option, options[option]);
         }
-        if (!this.getOption('performScan')) throw new Error('Need method for performing scan');
+        this.validateOptions();
     }
 
     setOption(option, value){
@@ -41,13 +41,19 @@ export default class Scanner {
         return this.options[option];
     }
 
-    //Create scanner over calling element with video, canvas, back button, bg icon
+    validateOptions(){
+        if (!this.getOption('performScan')) throw new Error('Need method for performing scan');
+        if (!this.getOption('wrapper')) throw new Error('Missing element to append scanner');
+        if (!this.getOption('startBtn')) throw new Error('Missing button to start scanner');
+    }
+
+    //Create scanner over start button with video, canvas, back button, bg icon
     create(){
         this.scanner = document.createElement('div');
         const {top, left, width, height} = this.position;
 
         this.scanner.classList.add(this.getOption('classname'));
-        this.scanner.classList.add(this.getOption('theme'));
+        this.scanner.classList.add(`scanner--${this.getOption('theme')}`);
         this.scanner.style.position = 'fixed';
         this.scanner.style.top = top + 'px';
         this.scanner.style.left = left + 'px';
@@ -55,17 +61,17 @@ export default class Scanner {
         this.scanner.style.height = height + 'px';
 
         this.icon = document.createElement('p');
-        this.icon.className = 'icon';
+        this.icon.className = 'scanner__icon';
         this.iconTopBorder = document.createElement('div');
-        this.iconTopBorder.className = 'iconTopBorder';
+        this.iconTopBorder.className = 'icon__border-top';
         this.iconBottomBorder = document.createElement('div');
-        this.iconBottomBorder.className = 'iconBottomBorder';
+        this.iconBottomBorder.className = 'icon__border-bottom';
         this.icon.append(this.iconTopBorder);
         this.icon.append(this.iconBottomBorder);
 
         this.backBtn = document.createElement('button');
         this.backBtn.type = 'button';
-        this.backBtn.id = 'backBtn';
+        this.backBtn.className = 'scanner__back-btn';
         this.backBtn.innerHTML = this.getOption('backBtnMsg');
         this.backBtn.addEventListener('click', async () => this.handleCancel());
 
@@ -77,8 +83,8 @@ export default class Scanner {
         this.scanner.appendChild(this.icon);
         this.scanner.appendChild(this.backBtn);
 
-        const parent = this.getOption('parentElement');
-        parent.appendChild(this.scanner);
+        const wrapper = this.getOption('wrapper');
+        wrapper.appendChild(this.scanner);
 
         this.setState(AVAILABLE)
     }
