@@ -5,7 +5,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import banner from 'rollup-plugin-banner';
-import strip from '@rollup/plugin-strip';
+import typescript from '@rollup/plugin-typescript';
 
 const config = [
     {
@@ -26,7 +26,7 @@ const config = [
             },
         ],
         plugins: [
-            // strip(),  // removes console.log
+            typescript(),
             commonjs({
                 include: "node_modules/**",
             }),
@@ -36,7 +36,7 @@ const config = [
                 babelHelpers: "bundled",
             }),
             terser(), // minify javascript
-            banner('Scannqr\nv<%= pkg.version %>\nby <%= pkg.author %>'),
+            banner('Scannqr\nv<%= pkg.version %>\nby <%= pkg.author %>')
         ],
     },
 ];

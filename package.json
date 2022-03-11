@@ -3,7 +3,12 @@
   "version": "1.0.2",
   "description": "Customisable javascript video scanner with the ability to scan QR codes",
   "keywords": [
-    "scanner", "video", "qr", "qr code", "barcode", "face recognition"
+    "scanner",
+    "video",
+    "qr",
+    "qr code",
+    "barcode",
+    "face recognition"
   ],
   "main": "dist/scannqr.cjs.js",
   "module": "dist/scannqr.esm.js",
@@ -24,14 +29,23 @@
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-strip": "^2.0.0",
+    "@rollup/plugin-typescript": "^8.3.1",
     "canvas": "^2.8.0",
     "jest": "^27.4.3",
     "rollup": "^2.60.0",
     "rollup-plugin-banner": "^0.2.1",
+    "rollup-plugin-includepaths": "^0.2.4",
     "rollup-plugin-terser": "^7.0.0",
-    "sass": "^1.43.4"
+    "sass": "^1.43.4",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.2"
   },
   "files": [
     "/dist"
-  ]
+  ],
+  "_moduleAliases": {
+    "@scanner/*": ["dist/components/scanner/*"],
+    "@qrscanner/*": ["dist/components/qrscanner/*"],
+    "@utils/*": ["dist/utils/*"]
+  }
 }

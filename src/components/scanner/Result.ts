@@ -1,6 +1,16 @@
-import {ERROR, FAILED, PENDING, SUCCESS} from "../utils/states";
+import {ERROR, FAILED, PENDING, SUCCESS} from "@utils/states";
+import Scan from "@scanner/Scan";
 
 export default class Result {
+    protected scan: Scan;
+    protected type: string;
+    protected result: any;
+    protected error: any;
+    protected scanner: any;
+    protected message: any;
+    protected onSuccess: any;
+    protected onFailure: any;
+    protected onError: any;
 
     constructor(scan) {
         this.scan = scan;

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@scanner/*": ["src/components/scanner/*"],
+      "@qrscanner/*": ["src/components/qrscanner/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  }
+}

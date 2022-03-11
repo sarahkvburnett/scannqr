@@ -1,8 +1,12 @@
-import {CANCELLED, ERROR, FAILED, SUCCESS, UNAUTHORIZED} from "../utils/states";
+import {CANCELLED, ERROR, FAILED, SUCCESS, UNAUTHORIZED} from "@utils/states";
+import Scanner from "@scanner/Scanner";
 
 export default class Message {
 
-    isCreated = false;
+    protected isCreated: boolean = false;
+    private scanner: Scanner;
+    private element: HTMLElement;
+    private message: HTMLDivElement;
 
     constructor(scanner) {
         this.scanner = scanner;
@@ -10,11 +14,11 @@ export default class Message {
         if (!this.getOption('displayMessage')) this.element.style.display = 'none';
     }
 
-    getOption(option){
+    getOption(option): any {
         return this.scanner.getOption(option);
     }
 
-    create(){
+    create(): HTMLElement {
         if (this.isCreated) return;
         this.isCreated = true;
         const element = document.createElement('div');
@@ -23,7 +27,7 @@ export default class Message {
         return element;
     }
 
-    update(type, message = null){
+    update(type: string, message: string | null = null): void{
         this.hide();
         this.message = document.createElement('div');
         this.message.className = 'message ' + this.getClassname(type);
@@ -32,16 +36,16 @@ export default class Message {
         this.display();
     }
 
-    display(){
+    display(): void{
         this.message.style.display = 'block';
     }
 
-    hide(){
+    hide(): void{
         if (this.message) this.message.style.display = 'none';
         this.element.innerHTML = '';
     }
 
-    getClassname(type){
+    getClassname(type: string): string {
         switch (type) {
             case SUCCESS:
                 return 'message--success';
@@ -55,7 +59,7 @@ export default class Message {
         }
     }
 
-    getMessage(type){
+    getMessage(type: string): string{
         switch (type) {
             case SUCCESS:
                 return this.getOption('successMsg');

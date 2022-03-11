@@ -1,6 +1,6 @@
 export default class Options {
 
-    /** === Customisable Options for Scanner/QRScanner === **/
+    /** === Customisable QROptions for scanner/qrscanner === **/
 
     /*
     * Element to append scanner

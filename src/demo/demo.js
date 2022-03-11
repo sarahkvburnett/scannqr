@@ -1,5 +1,5 @@
-import Scanner from "../Scanner";
-import QRScanner from "../QRScanner";
+import Scanner from "../scanner";
+import QRScanner from "../qrscanner";
 
 const scanner = new Scanner({
     wrapper: document.querySelector('.scanner-demo'),

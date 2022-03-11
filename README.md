@@ -33,7 +33,7 @@ const {Scanner} = require("/your-path-to-scannqr/dist/scannqr.js");
 1. Create HTML
 ```html
 <div class="scanner__wrapper">
-    <button class="scanner__start-btn">Scan</button>
+    <button class="scanner__start-btn">QRScan</button>
 </div>
 ```    
 2. Import CSS
@@ -52,7 +52,7 @@ const scanner = new Scanner({
 });
 ```
 
-## ⚙️ Options
+## ⚙️ QROptions
 ### Required
 ### `performScan`
 Type: `Function`  
@@ -85,7 +85,7 @@ Classname for scanner
 
 ### `theme`
 Type: `string`  
-Options: `dark` | `light`  
+QROptions: `dark` | `light`  
 Default:`dark`
 
 Theme for scanner - background color
@@ -98,7 +98,7 @@ HTML used for scanner background prior/instead of video display
 
 ### `videoFacingMode`
 Type: `String`  
-Options: `user` | `environment` | `left` | `right`  
+QROptions: `user` | `environment` | `left` | `right`  
 Default: `environment`
 
 Which camera to source stream to be scanned as in:
@@ -238,7 +238,7 @@ QRScanner(...);
 1. Create HTML
 ```html  
 <form class="scanner__wrapper">
-    <button class="scanner__start-btn">Scan</button>
+    <button class="scanner__start-btn">QRScan</button>
     <input class="scanner__input"/>
     <button class="scanner__submit-btn"/>
 </form>
@@ -261,7 +261,7 @@ const qrScanner = new QRScanner({
 });
 ```
 
-## Options
+## QROptions
 ### Required
 
 ### `input`

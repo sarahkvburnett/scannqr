@@ -12,7 +12,7 @@ const config = [
         input: "src/demo/demo.js",
         output: [
             {
-                name: "Scanner Demo",
+                name: "scanner Demo",
                 file: "demo/js/demo.js",
                 format: "umd",
             },
@@ -28,7 +28,7 @@ const config = [
                 babelHelpers: "bundled",
             }),
             terser(), // minify javascript
-            banner('Scanner Demo\nv<%= pkg.version %>\nby <%= pkg.author %>'),
+            banner('scanner Demo\nv<%= pkg.version %>\nby <%= pkg.author %>'),
         ],
     },
 ];

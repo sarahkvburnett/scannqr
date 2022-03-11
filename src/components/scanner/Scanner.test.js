@@ -1,5 +1,5 @@
-import Scanner from "./Scanner";
-import Scan from "./classes/Scan";
+import Scanner from "./scanner";
+import Scan from "./qrscanner/QRScan";
 
 
 function resetDOM(){

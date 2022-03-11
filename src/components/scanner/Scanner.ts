@@ -1,54 +1,68 @@
-import Message from "./classes/Message";
-import Scan from "./classes/Scan";
-import Stream from "./classes/Stream";
-import {AVAILABLE, CANCELLED, REMOVED, SCANNING, STOPPING, UNAUTHORIZED} from "./utils/states";
-import Options from "./classes/Options";
+import {AVAILABLE, REMOVED, SCANNING, STOPPING, CANCELLED, UNAUTHORIZED} from "@utils/states";
+import Message from "@scanner/Message";
+import Stream from "@scanner/Stream";
+import Scan from "@scanner/Scan";
+import Options from "@scanner/Options";
 
 export default class Scanner {
 
-    options = new Options();
+    protected options;
+    message: Message;
+    scanner: HTMLDivElement;
+    protected startBtn: HTMLElement;
+    protected position: DOMRect;
+    protected state: string;
+    protected icon: HTMLParagraphElement;
+    protected backBtn: HTMLButtonElement;
+    protected stream: Stream;
+    protected scan: Scan;
 
-    constructor(options){
-        this.setOptions(options);
-
-        this.message = new Message(this);
-
+    constructor(customOptions){
+        this.init(customOptions);
         this.startBtn = this.getOption('startBtn');
         this.position = this.startBtn.getBoundingClientRect();
         this.startBtn.addEventListener('click', async () => this.start());
     }
 
-    setState(state){
+    init(customOptions): void {
+        this.options = new Options();
+        this.message = new Message(this);
+        this.stream = new Stream(this);
+        this.scan = new Scan(this);
+        this.setCustomOptions(customOptions);
+    }
+
+    setState(state: string): void {
         this.state = state;
     }
 
-    isState(state){
+    isState(state: string): boolean {
         return this.state === state;
     }
 
-    setOptions(options){
+    setCustomOptions(options){
         for (let option in options){
             this.setOption(option, options[option]);
         }
         this.validateOptions();
     }
 
-    setOption(option, value){
+    setOption(option: string, value: any): void {
         this.options[option] = value;
     }
 
-    getOption(option){
+    getOption(option: string ): any {
         return this.options[option];
     }
 
-    validateOptions(){
+    validateOptions(): void {
         if (!this.getOption('performScan')) throw new Error('Need method for performing scan');
         if (!this.getOption('wrapper')) throw new Error('Missing element to append scanner');
         if (!this.getOption('startBtn')) throw new Error('Missing button to start scanner');
     }
 
     //Create scanner over start button with video, canvas, back button, bg icon
-    create(){
+    create(): void {
         this.scanner = document.createElement('div');
         const {top, left, width, height} = this.position;
 
@@ -61,21 +75,18 @@ export default class Scanner {
 
         this.icon = document.createElement('p');
         this.icon.className = 'scanner__icon';
-        this.iconTopBorder = document.createElement('div');
-        this.iconTopBorder.className = 'icon__border-top';
-        this.iconBottomBorder = document.createElement('div');
-        this.iconBottomBorder.className = 'icon__border-bottom';
-        this.icon.append(this.iconTopBorder);
-        this.icon.append(this.iconBottomBorder);
+        const iconTopBorder = document.createElement('div');
+        iconTopBorder.className = 'icon__border-top';
+        const iconBottomBorder = document.createElement('div');
+        iconBottomBorder.className = 'icon__border-bottom';
+        this.icon.append(iconTopBorder);
+        this.icon.append(iconBottomBorder);
 
         this.backBtn = document.createElement('button');
         this.backBtn.type = 'button';
         this.backBtn.className = 'scanner__back-btn';
         this.backBtn.innerHTML = this.getOption('backBtnMsg');
         this.backBtn.addEventListener('click', async () => this.handleCancel());
-
-        this.stream = new Stream(this);
-        this.scan = new Scan(this);
 
         this.scanner.appendChild(this.stream.canvas);
         this.scanner.appendChild(this.stream.video);
@@ -89,7 +100,7 @@ export default class Scanner {
     }
 
     //Start scanner
-    async start(){
+    async start(): Promise<void> {
         if (!this.scanner || this.isState(REMOVED)) this.create();
         try {
             await this.animateIn(); //Animation first to allow animation to mask video start lag
@@ -102,7 +113,7 @@ export default class Scanner {
     }
 
     //Stop scanner
-    async stop(){
+    async stop(): Promise<void> {
         if (this.isScanning()) {
             this.setState(STOPPING);
             await this.stream.stop();
@@ -143,7 +154,7 @@ export default class Scanner {
     }
 
     //State
-    isScanning(){
+    isScanning(): boolean {
         return this.state === SCANNING;
     }
 
@@ -158,13 +169,13 @@ export default class Scanner {
                 top ${duration}ms ease-in-out
             `;
             this.scanner.style.zIndex = "1000";
-            this.scanner.style.opacity = 1;
-            this.scanner.style.top = 0;
-            this.scanner.style.left = 0;
+            this.scanner.style.opacity = "1";
+            this.scanner.style.top = "0";
+            this.scanner.style.left = "0";
             this.scanner.style.width = '100vw';
             this.scanner.style.height = '100vh';
         };
-        return new Promise( async res => {
+        return new Promise<void>( async res => {
             await this.requestAnimation(animation, duration);
             this.scanner.classList.add('scanner--show');
             this.backBtn.style.opacity = '1';
@@ -176,7 +187,7 @@ export default class Scanner {
         const duration = '350';
         const {top, left, width, height} = this.position;
         const animation = () => {
-            this.backBtn.style.opacity = 0;
+            this.backBtn.style.opacity = "0";
             this.stream.hide();
             this.scanner.classList.remove('scanner--show');
             this.scanner.style.transition = `
@@ -192,7 +203,7 @@ export default class Scanner {
             this.scanner.style.height = height + 'px';
         };
 
-        return new Promise( async res => {
+        return new Promise<void>( async res => {
             await this.requestAnimation(animation, duration);
            res();
         });
