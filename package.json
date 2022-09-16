@@ -1,25 +1,25 @@
 {
   "name": "scannqr",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Customisable javascript video scanner with the ability to scan QR codes",
   "keywords": [
     "scanner",
     "video",
     "qr",
     "qr code",
-    "barcode",
-    "face recognition"
+    "barcode"
   ],
   "main": "dist/scannqr.cjs.js",
   "module": "dist/scannqr.esm.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup --config rollup.config.js && sass src/scss:dist/css -s compressed",
-    "demo": "rollup --config rollup.config.demo.js && sass src/demo:demo/css -s compressed"
+    "build": "rollup --config rollup.config.js && sass src:dist/css -s compressed",
+    "demo": "rollup --config rollup.config.demo.js && sass demo/src:demo/css -s compressed"
   },
   "author": "Sarah Burnett",
-  "license": "ISC",
+  "license": "",
   "dependencies": {
+    "@babel/preset-typescript": "^7.16.7",
     "jsqr": "^1.4.0"
   },
   "devDependencies": {
@@ -44,8 +44,14 @@
     "/dist"
   ],
   "_moduleAliases": {
-    "@scanner/*": ["dist/components/scanner/*"],
-    "@qrscanner/*": ["dist/components/qrscanner/*"],
-    "@utils/*": ["dist/utils/*"]
+    "@scanner/*": [
+      "dist/components/scanner/*"
+    ],
+    "@qrscanner/*": [
+      "dist/components/qrscanner/*"
+    ],
+    "@utils/*": [
+      "dist/utils/*"
+    ]
   }
 }

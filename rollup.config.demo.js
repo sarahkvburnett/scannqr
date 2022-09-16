@@ -9,10 +9,10 @@ import strip from '@rollup/plugin-strip';
 
 const config = [
     {
-        input: "src/demo/demo.js",
+        input: "demo/src/demo.js",
         output: [
             {
-                name: "scanner Demo",
+                name: "Scannqr Demo",
                 file: "demo/js/demo.js",
                 format: "umd",
             },
@@ -27,8 +27,8 @@ const config = [
                 exclude: "node_modules/**",
                 babelHelpers: "bundled",
             }),
-            terser(), // minify javascript
-            banner('scanner Demo\nv<%= pkg.version %>\nby <%= pkg.author %>'),
+            // terser(), // minify javascript
+            banner('Scannqr Demo\nv<%= pkg.version %>\nby <%= pkg.author %>'),
         ],
     },
 ];

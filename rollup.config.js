@@ -9,19 +9,19 @@ import typescript from '@rollup/plugin-typescript';
 
 const config = [
     {
-        input: "src/index.js",
+        input: "src/scannqr.ts",
         output: [
             {
-                file: "dist/scannqr.cjs.js",
+                file: "dist/js/scannqr.cjs.js",
                 format: "cjs",
             },
             {
-                file: "dist/scannqr.esm.js",
+                file: "dist/js/scannqr.esm.js",
                 format: "esm",
             },
             {
                 name: "Scannqr",
-                file: "dist/scannqr.js",
+                file: "dist/js/scannqr.js",
                 format: "umd",
             },
         ],
@@ -35,7 +35,7 @@ const config = [
                 exclude: "node_modules/**",
                 babelHelpers: "bundled",
             }),
-            terser(), // minify javascript
+            // terser(), // minify javascript
             banner('Scannqr\nv<%= pkg.version %>\nby <%= pkg.author %>')
         ],
     },

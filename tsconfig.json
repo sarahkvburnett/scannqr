@@ -2,8 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@scanner/*": ["src/components/scanner/*"],
-      "@qrscanner/*": ["src/components/qrscanner/*"],
+      "@modules/*": ["src/modules/*"],
+      "@scanner/*": ["src/modules/scanner/*"],
+      "@qrscanner/*": ["src/modules/qrscanner/*"],
       "@utils/*": ["src/utils/*"]
     }
   }

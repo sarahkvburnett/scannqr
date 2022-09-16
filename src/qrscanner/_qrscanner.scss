@@ -1,0 +1,52 @@
+.qrscanner {
+  margin: 0;
+  background: #fff;
+  opacity: 0;
+  z-index: -1;
+  display: flex;
+  border: 2px solid #d6dade;
+
+  video {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  canvas {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    transition: font-size .3s ease-in;
+  }
+
+  #backBtn {
+    padding: .5rem 1rem;
+    display: block;
+    text-decoration: none;
+    color: #000;
+    background: #fff;
+    text-align: center;
+    font-size: inherit;
+    font-family: inherit;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+    transition: opacity 100ms ease-in;
+    z-index: 1002;
+  }
+
+
+}
