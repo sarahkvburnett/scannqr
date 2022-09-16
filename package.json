@@ -1,6 +1,6 @@
 {
   "name": "scannqr",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Customisable javascript video scanner with the ability to scan QR codes",
   "keywords": [
     "scanner",
@@ -13,7 +13,7 @@
   "module": "dist/scannqr.esm.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup --config rollup.config.js && sass src:dist/css -s compressed",
+    "build": "rollup --config rollup.config.js && sass src:dist -s compressed",
     "demo": "rollup --config rollup.config.demo.js && sass demo/src:demo/css -s compressed"
   },
   "author": "Sarah Burnett",

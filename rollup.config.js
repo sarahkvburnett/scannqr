@@ -12,16 +12,16 @@ const config = [
         input: "src/scannqr.ts",
         output: [
             {
-                file: "dist/js/scannqr.cjs.js",
+                file: "dist/scannqr.cjs.js",
                 format: "cjs",
             },
             {
-                file: "dist/js/scannqr.esm.js",
+                file: "dist/scannqr.esm.js",
                 format: "esm",
             },
             {
                 name: "Scannqr",
-                file: "dist/js/scannqr.js",
+                file: "dist/scannqr.js",
                 format: "umd",
             },
         ],
@@ -35,7 +35,7 @@ const config = [
                 exclude: "node_modules/**",
                 babelHelpers: "bundled",
             }),
-            // terser(), // minify javascript
+            terser(), // minify javascript
             banner('Scannqr\nv<%= pkg.version %>\nby <%= pkg.author %>')
         ],
     },

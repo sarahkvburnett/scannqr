@@ -17,15 +17,15 @@ npm install scannqr
 #### JS Module
 ```js
 // ES6 import
-import {QRScanner} from "/your-path-to-scanner/dist/scannqr.ts";
+import {QRScanner} from "/your-path-to-scanner/dist/scannqr.js";
 
 // CommonJS require
-const {QRScanner} = require("/your-path-to-scanner/dist/scannqr.ts");
+const {QRScanner} = require("/your-path-to-scanner/dist/scannqr.js");
 ```
 #### HTML Script tag
 
 ```html
-<script src="/your-path-to-scannqr/dist/scannqr.ts"></script>
+<script src="/your-path-to-scannqr/dist/scannqr.js"></script>
 ```
 
 

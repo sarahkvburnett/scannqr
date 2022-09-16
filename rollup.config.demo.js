@@ -27,7 +27,7 @@ const config = [
                 exclude: "node_modules/**",
                 babelHelpers: "bundled",
             }),
-            // terser(), // minify javascript
+            terser(), // minify javascript
             banner('Scannqr Demo\nv<%= pkg.version %>\nby <%= pkg.author %>'),
         ],
     },

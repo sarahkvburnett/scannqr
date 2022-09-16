@@ -1,4 +1,4 @@
-import {QRScanner} from "../../dist/js/scannqr.esm";
+import {QRScanner} from "../../dist/scannqr.esm";
 
 const qrscanner = new QRScanner({
     wrapper: document.querySelector('.qrscanner__wrapper'),
