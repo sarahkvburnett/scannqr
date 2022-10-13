@@ -15,6 +15,7 @@ export default class QRScanner {
     protected submitBtn: HTMLButtonElement;
     protected backBtnMsg: string = 'Go Back';
     protected primaryColor: string = '#03a803';
+    protected outlineDuration: number = 700;
 
     protected isScanning: boolean = false;
     protected classname: string = 'qrscanner';
@@ -28,6 +29,10 @@ export default class QRScanner {
         if (options.hasOwnProperty('backBtnMsg')) this.backBtnMsg = options.backBtnMsg;
         if (options.hasOwnProperty('output')) this.output = options.output;
         if (options.hasOwnProperty('submitBtn')) this.submitBtn = options.submitBtn;
+
+        if (options.hasOwnProperty('performScan')) this.performScan = options.performScan;
+        if (options.hasOwnProperty('handleScanSuccess')) this.handleScanSuccess = options.handleScanSuccess;
+        if (options.hasOwnProperty('outlineDuration')) this.outlineDuration = options.outlineDuration;
 
         this.wrapper = options.wrapper;
         this.startBtn = options.startBtn;
@@ -148,7 +153,7 @@ export default class QRScanner {
         this.drawLine(code.location.topRightCorner, code.location.bottomRightCorner);
         this.drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner);
         this.drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner);
-        await new Promise((res) => setTimeout(res, 700));
+        await new Promise((res) => setTimeout(res, this.outlineDuration));
     }
 
     drawLine(begin: { x: number; y: number; }, end: { x: number; y: number; }) {
