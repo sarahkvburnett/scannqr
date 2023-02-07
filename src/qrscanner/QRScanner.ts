@@ -78,7 +78,7 @@ export default class QRScanner {
         this.video = video;
         this.icon = icon;
         this.backBtn = backBtn;
-        this.ctx = canvas.getContext("2d");
+        this.ctx = canvas.getContext("2d", { willReadFrequently: true});
 
         this.backBtn.addEventListener('click', () => this.stop());
         this.startBtn.addEventListener('click', async () => await this.start());
