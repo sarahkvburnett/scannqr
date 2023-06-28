@@ -48,5 +48,17 @@
     z-index: 1002;
   }
 
+  #error {
+    &:empty {
+      display: none;
+    }
+    color: #e61e1e;
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 50%;
+    padding: 1rem;
+    opacity: 0;
+  }
 
 }

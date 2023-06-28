@@ -9,5 +9,5 @@ const qrscanner = new QRScanner({
 
 document.querySelector('form').onsubmit = function(e){
     e.preventDefault();
-    alert('QR Code Found and Submitted: ' + document.querySelector('.qrscanner__input').value);
+    console.log('submitted')
 }

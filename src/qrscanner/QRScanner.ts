@@ -11,6 +11,7 @@ export default class QRScanner {
 
     protected wrapper: HTMLElement;
     protected startBtn: HTMLElement;
+    protected error: HTMLElement;
     protected output: HTMLInputElement;
     protected submitBtn: HTMLButtonElement;
     protected backBtnMsg: string = 'Go Back';
@@ -64,6 +65,9 @@ export default class QRScanner {
         backBtn.id = 'backBtn';
         backBtn.innerHTML = this.backBtnMsg;
 
+        const error = document.createElement('span');
+        error.id  = 'error';
+
         video.autoplay = true;
         video.muted = true;
         video.playsInline = true;
@@ -72,12 +76,14 @@ export default class QRScanner {
         scanner.appendChild(video);
         scanner.appendChild(icon);
         scanner.appendChild(backBtn);
+        scanner.appendChild(error);
 
         this.scanner = scanner;
         this.canvas = canvas;
         this.video = video;
         this.icon = icon;
         this.backBtn = backBtn;
+        this.error = error;
         this.ctx = canvas.getContext("2d", { willReadFrequently: true});
 
         this.backBtn.addEventListener('click', () => this.stop());
@@ -91,23 +97,24 @@ export default class QRScanner {
         try {
             if (!this.scanner) this.create();
             this.animateIn();
-            const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: "environment"}});
-            this.video.srcObject = await stream;
+            this.video.srcObject = await navigator.mediaDevices.getUserMedia({video: {facingMode: "environment"}});
             this.video.play();
             this.requestScan();
             this.isScanning = true;
         } catch {
+            this.displayScanError('Unable to start scanning, please ensure you grant permission to access the camera');
         }
     }
 
     //Stop scanner
     async stop() {
-        if (!this.isScanning) return;
-        this.video.pause();
-        const mediaStream = <MediaStream>this.video.srcObject;
-        (mediaStream.getTracks()).forEach(track => track.stop());
-        this.video.srcObject = null;
-        this.isScanning = false;
+        if (this.isScanning) {
+            this.video.pause();
+            const mediaStream = <MediaStream>this.video.srcObject;
+            (mediaStream.getTracks()).forEach(track => track.stop());
+            this.video.srcObject = null;
+            this.isScanning = false;
+        };
         await this.animateOut();
         this.scanner.remove();
         this.scanner = null;
@@ -138,6 +145,11 @@ export default class QRScanner {
         if (this.output) this.output.value = this.QRCode.data;
         if (this.submitBtn) this.submitBtn.click();
     }
+
+    // Handle Scan Error
+    displayScanError(e){
+        this.error.innerHTML = e.toString();
+    };
 
     //Canvas Drawing
     displayFrame(){
@@ -193,6 +205,7 @@ export default class QRScanner {
         return new Promise<void>( async res => {
             await this.requestAnimation(animation, duration);
             this.backBtn.style.opacity = '1';
+            this.error.style.opacity = '1';
             res();
         })
     }
